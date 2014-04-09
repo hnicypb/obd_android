@@ -76,9 +76,11 @@ public class MainActivity extends FragmentActivity{
 	private View getTabItemView(int index){
 		View view = layoutInflater.inflate(R.layout.tab_item_view, null);
 	
+		// 设置按钮图片
 //		ImageView imageView = (ImageView) view.findViewById(R.id.imageview);
 //		imageView.setImageResource(mImageViewArray[index]);
 		
+		// 设置按钮文本
 		TextView textView = (TextView) view.findViewById(R.id.textview);		
 		textView.setText(mTextviewArray[index]);
 	
