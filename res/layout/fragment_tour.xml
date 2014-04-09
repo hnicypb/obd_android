@@ -1,8 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" 
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
     android:scaleType="fitXY"
     android:background="@drawable/back" >
-
-</LinearLayout>
+   <ImageView
+        android:id="@+id/imageViewLeftUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:layout_marginTop="25dip" 
+		android:layout_marginLeft="20dip"
+		android:layout_alignParentLeft="true"
+        android:src="@drawable/data_normal" />
+     <ImageView
+        android:id="@+id/imageViewLeftCenter"
+        android:layout_below="@+id/imageViewLeftUp"
+		android:layout_alignLeft="@+id/imageViewLeftUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:layout_marginTop="15dip" 
+        android:src="@drawable/data_normal" />  
+     <ImageView
+        android:id="@+id/imageViewLeftDown"
+        android:layout_below="@+id/imageViewLeftCenter"
+		android:layout_alignLeft="@+id/imageViewLeftUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:layout_marginTop="15dip" 
+        android:src="@drawable/data_normal" />
+     
+    <ImageView
+        android:id="@+id/imageViewSpeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/data_speed" />    
+    
+   <ImageView
+        android:id="@+id/imageViewRightUp"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:layout_marginTop="25dip" 
+		android:layout_marginRight="20dip"
+        android:src="@drawable/data_normal" />
+     <ImageView
+        android:id="@+id/imageViewRightCenter"
+        android:layout_below="@+id/imageViewRightUp"
+		android:layout_alignLeft="@+id/imageViewRightUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:layout_marginTop="15dip" 
+        android:src="@drawable/data_normal" />  
+     <ImageView
+        android:id="@+id/imageViewRightDown"
+        android:layout_below="@+id/imageViewRightCenter"
+		android:layout_alignLeft="@+id/imageViewRightCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:layout_marginTop="15dip" 
+        android:src="@drawable/data_normal" />
+     
+     
+</RelativeLayout>
