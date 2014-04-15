@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:scaleType="fitXY"
     android:background="@drawable/back">
-    
+    <!-- 左上 -->
    <ImageView
         android:id="@+id/imageViewLeftUp"
         android:layout_width="wrap_content"
@@ -13,6 +13,43 @@
 		android:layout_marginLeft="20dip"
 		android:layout_alignParentLeft="true"
         android:src="@drawable/data_normal" />
+     	<TextView
+	        android:id="@+id/tvLeftUpValue"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/imageViewLeftUp"
+	        android:layout_alignTop="@+id/imageViewLeftUp"
+	        android:layout_alignRight="@+id/imageViewLeftUp"
+	        android:layout_alignBottom="@+id/imageViewLeftUp"
+	        android:layout_marginRight="40dip"
+	        android:layout_marginBottom="21dip"
+	        android:gravity="right"   
+	        android:textSize="35dp"
+	        android:textColor="@color/white"
+	        android:text="7.6" />
+     	<TextView
+	        android:id="@+id/tvLeftUpText"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/imageViewLeftUp"
+	        android:layout_alignTop="@+id/imageViewLeftUp"
+	        android:layout_alignRight="@+id/imageViewLeftUp"
+	        android:layout_alignBottom="@+id/imageViewLeftUp"
+	        android:layout_marginTop="42dip"
+	        android:gravity="center"    
+	        android:textSize="15dp"
+	        android:textColor="@color/white"
+	        android:text="本次行驶油费" /> 
+	    <ImageView
+	        android:id="@+id/imageViewUnitLeftUp"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignTop="@+id/imageViewLeftUp"
+	        android:layout_alignRight="@+id/imageViewLeftUp"
+	        android:src="@drawable/unit_amount_800x480" />
+     <!-- 左上 -->
+     
+     <!-- 左中 -->	
      <ImageView
         android:id="@+id/imageViewLeftCenter"
         android:layout_below="@+id/imageViewLeftUp"
@@ -21,6 +58,43 @@
         android:layout_height="wrap_content"
 		android:layout_marginTop="8dip" 
         android:src="@drawable/data_normal" />  
+     	<TextView
+	        android:id="@+id/tvLeftCenterValue"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/imageViewLeftCenter"
+	        android:layout_alignTop="@+id/imageViewLeftCenter"
+	        android:layout_alignRight="@+id/imageViewLeftCenter"
+	        android:layout_alignBottom="@+id/imageViewLeftCenter"
+	        android:layout_marginRight="40dip"
+	        android:layout_marginBottom="21dip"
+	        android:gravity="right"   
+	        android:textSize="35dp"
+	        android:textColor="@color/white"
+	        android:text="5.6" />
+     	<TextView
+	        android:id="@+id/tvLeftUpCenterText"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/imageViewLeftCenter"
+	        android:layout_alignTop="@+id/imageViewLeftCenter"
+	        android:layout_alignRight="@+id/imageViewLeftCenter"
+	        android:layout_alignBottom="@+id/imageViewLeftCenter"
+	        android:layout_marginTop="42dip"
+	        android:gravity="center"    
+	        android:textSize="15dp"
+	        android:textColor="@color/white"
+	        android:text="平均油耗(历史)" /> 
+	    <ImageView
+	        android:id="@+id/imageViewUnitLeftCenter"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignTop="@+id/imageViewLeftCenter"
+	        android:layout_alignRight="@+id/imageViewLeftCenter"
+	        android:src="@drawable/unit_l_100km_800x480" />
+      <!-- 左中 -->	
+      
+     <!-- 左下 -->	
      <ImageView
         android:id="@+id/imageViewLeftDown"
         android:layout_below="@+id/imageViewLeftCenter"
@@ -29,6 +103,41 @@
         android:layout_height="wrap_content"
 		android:layout_marginTop="8dip" 
         android:src="@drawable/data_normal" />
+     	<TextView
+	        android:id="@+id/tvLeftDownValue"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/imageViewLeftDown"
+	        android:layout_alignTop="@+id/imageViewLeftDown"
+	        android:layout_alignRight="@+id/imageViewLeftDown"
+	        android:layout_alignBottom="@+id/imageViewLeftDown"
+	        android:layout_marginRight="40dip"
+	        android:layout_marginBottom="21dip"
+	        android:gravity="right"   
+	        android:textSize="35dp"
+	        android:textColor="@color/white"
+	        android:text="3.4" />
+     	<TextView
+	        android:id="@+id/tvLeftUpDownText"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/imageViewLeftDown"
+	        android:layout_alignTop="@+id/imageViewLeftDown"
+	        android:layout_alignRight="@+id/imageViewLeftDown"
+	        android:layout_alignBottom="@+id/imageViewLeftDown"
+	        android:layout_marginTop="42dip"
+	        android:gravity="center"    
+	        android:textSize="15dp"
+	        android:textColor="@color/white"
+	        android:text="即时油耗1(静态)" /> 
+	    <ImageView
+	        android:id="@+id/imageViewUnitLeftDown"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignTop="@+id/imageViewLeftDown"
+	        android:layout_alignRight="@+id/imageViewLeftDown"
+	        android:src="@drawable/unit_l_h_800x480" />
+     <!-- 左下 -->	
      
     <ImageView
         android:id="@+id/imageViewWaterTemp"
@@ -36,7 +145,34 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:src="@drawable/data_watertemp" />    
-    
+     	<TextView
+	        android:id="@+id/tvWaterValue"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/imageViewWaterTemp"
+	        android:layout_alignRight="@+id/imageViewWaterTemp"
+	        android:layout_alignTop="@+id/imageViewWaterTemp"
+	        android:layout_alignBottom="@+id/imageViewWaterTemp"
+	        android:gravity="center"   
+	        android:textSize="120dp"
+	        android:textColor="@color/black"
+	        android:text="80" />     	
+
+     	<TextView
+	        android:id="@+id/tvWaterText"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/imageViewWaterTemp"
+	        android:layout_alignRight="@+id/imageViewWaterTemp"
+	        android:layout_alignTop="@+id/imageViewWaterTemp"
+	        android:layout_alignBottom="@+id/imageViewWaterTemp"
+			android:layout_marginTop="130dip" 
+	        android:gravity="center"   
+	        android:textSize="20dp"
+	        android:textColor="@color/black"
+	        android:text="水温" />
+        
+    <!-- 右上 -->	
    <ImageView
         android:id="@+id/imageViewRightUp"
         android:layout_alignParentRight="true"
@@ -45,6 +181,43 @@
 		android:layout_marginTop="17dip" 
 		android:layout_marginRight="20dip"
         android:src="@drawable/data_normal" />
+     	<TextView
+	        android:id="@+id/tvRightUpValue"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/imageViewRightUp"
+	        android:layout_alignTop="@+id/imageViewRightUp"
+	        android:layout_alignRight="@+id/imageViewRightUp"
+	        android:layout_alignBottom="@+id/imageViewRightUp"
+	        android:layout_marginRight="40dip"
+	        android:layout_marginBottom="21dip"
+	        android:gravity="right"   
+	        android:textSize="35dp"
+	        android:textColor="@color/white"
+	        android:text="1909" />
+     	<TextView
+	        android:id="@+id/tvLeftUpText"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/imageViewRightUp"
+	        android:layout_alignTop="@+id/imageViewRightUp"
+	        android:layout_alignRight="@+id/imageViewRightUp"
+	        android:layout_alignBottom="@+id/imageViewRightUp"
+	        android:layout_marginTop="42dip"
+	        android:gravity="center"    
+	        android:textSize="15dp"
+	        android:textColor="@color/white"
+	        android:text="转速" /> 
+	    <ImageView
+	        android:id="@+id/imageViewUnitRightUp"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignTop="@+id/imageViewRightUp"
+	        android:layout_alignRight="@+id/imageViewRightUp"
+	        android:src="@drawable/unit_rpm_800x480" />   
+   	<!-- 右上 -->	
+   
+   	<!-- 右中 -->	
      <ImageView
         android:id="@+id/imageViewRightCenter"
         android:layout_below="@+id/imageViewRightUp"
@@ -53,6 +226,43 @@
         android:layout_height="wrap_content"
 		android:layout_marginTop="8dip" 
         android:src="@drawable/data_normal" />  
+     	<TextView
+	        android:id="@+id/tvRightCenterValue"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/imageViewRightCenter"
+	        android:layout_alignTop="@+id/imageViewRightCenter"
+	        android:layout_alignRight="@+id/imageViewRightCenter"
+	        android:layout_alignBottom="@+id/imageViewRightCenter"
+	        android:layout_marginRight="40dip"
+	        android:layout_marginBottom="21dip"
+	        android:gravity="right"   
+	        android:textSize="35dp"
+	        android:textColor="@color/white"
+	        android:text="12.7" />
+     	<TextView
+	        android:id="@+id/tvLeftCenterText"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/imageViewRightCenter"
+	        android:layout_alignTop="@+id/imageViewRightCenter"
+	        android:layout_alignRight="@+id/imageViewRightCenter"
+	        android:layout_alignBottom="@+id/imageViewRightCenter"
+	        android:layout_marginTop="42dip"
+	        android:gravity="center"    
+	        android:textSize="15dp"
+	        android:textColor="@color/white"
+	        android:text="电瓶电压" /> 
+	    <ImageView
+	        android:id="@+id/imageViewUnitRightCenter"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignTop="@+id/imageViewRightCenter"
+	        android:layout_alignRight="@+id/imageViewRightCenter"
+	        android:src="@drawable/unit_v_800x480" />
+   	 <!-- 右中 -->	
+	   
+	 <!-- 右下 -->	 
      <ImageView
         android:id="@+id/imageViewRightDown"
         android:layout_below="@+id/imageViewRightCenter"
@@ -61,8 +271,43 @@
         android:layout_height="wrap_content"
 		android:layout_marginTop="8dip" 
         android:src="@drawable/data_normal" />
+     	<TextView
+	        android:id="@+id/tvRightDownValue"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/imageViewRightDown"
+	        android:layout_alignTop="@+id/imageViewRightDown"
+	        android:layout_alignRight="@+id/imageViewRightDown"
+	        android:layout_alignBottom="@+id/imageViewRightDown"
+	        android:layout_marginRight="40dip"
+	        android:layout_marginBottom="21dip"
+	        android:gravity="right"   
+	        android:textSize="35dp"
+	        android:textColor="@color/white"
+	        android:text="50" />
+     	<TextView
+	        android:id="@+id/tvLeftDownText"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/imageViewRightDown"
+	        android:layout_alignTop="@+id/imageViewRightDown"
+	        android:layout_alignRight="@+id/imageViewRightDown"
+	        android:layout_alignBottom="@+id/imageViewRightDown"
+	        android:layout_marginTop="42dip"
+	        android:gravity="center"    
+	        android:textSize="15dp"
+	        android:textColor="@color/white"
+	        android:text="进气温度" /> 
+	    <ImageView
+	        android:id="@+id/imageViewUnitRightDown"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignTop="@+id/imageViewRightDown"
+	        android:layout_alignRight="@+id/imageViewRightDown"
+	        android:src="@drawable/unit_celsius_800x480" />
+   	<!-- 右下 -->	
      
-     
+    <!-- 日期 时间 -->
     <ImageView
         android:id="@+id/imageViewDatetime"
         android:layout_width="match_parent"
@@ -74,5 +319,46 @@
 		android:layout_marginRight="7dip"
 		android:layout_marginBottom="3dip" 
         android:src="@drawable/data_datetime" />
+     	<TextView
+	        android:id="@+id/tvDate"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/imageViewDatetime"
+	        android:layout_alignRight="@+id/imageViewLeftDown"
+	        android:layout_alignTop="@+id/imageViewDatetime"
+	        android:layout_alignBottom="@+id/imageViewDatetime"
+	        android:gravity="center"   
+	        android:textSize="20dp"
+	        android:textColor="@color/white"
+	        android:text="2014-04-15" />     	
+
+     	<TextView
+	        android:id="@+id/tvWeek"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/imageViewRightDown"
+	        android:layout_alignRight="@+id/imageViewDatetime"
+	        android:layout_alignTop="@+id/imageViewDatetime"
+	        android:layout_alignBottom="@+id/imageViewDatetime"
+	        android:gravity="center"   
+	        android:textSize="20dp"
+	        android:textColor="@color/white"
+	        android:text="星期二" />
+     	
+     	<TextView
+	        android:id="@+id/tvTime"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/imageViewWaterTemp"
+	        android:layout_alignRight="@+id/imageViewWaterTemp"
+	        android:layout_alignTop="@+id/imageViewDatetime"
+	        android:layout_alignBottom="@+id/imageViewDatetime"	           
+	        android:layout_marginTop="-5dip"     
+	        android:layout_marginBottom="5dip"
+	        android:gravity="center"   
+	        android:textSize="25dp"
+	        android:textColor="@color/white"
+	        android:text="17:11" />
+    <!-- 日期 时间 -->
 
 </RelativeLayout>
