@@ -8,7 +8,7 @@
         android:id="@+id/imageViewLefUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-		android:layout_marginTop="15dip" 
+		android:layout_marginTop="20dip" 
 		android:layout_marginLeft="20dip"
 		android:layout_alignParentLeft="true"
         android:src="@drawable/data_big" />
@@ -24,7 +24,7 @@
 	        android:gravity="center"   
 	        android:textSize="50dp"
 	        android:textColor="@color/black"
-	        android:text="1909" />
+	        android:text="80" />
      	<TextView
 	        android:id="@+id/tvLeftUpText"
 	        android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
 	        android:gravity="center"    
 	        android:textSize="30dp"
 	        android:textColor="@color/black"
-	        android:text="转速" /> 
+	        android:text="车速" /> 
         
 <ImageView
         android:id="@+id/imageViewLeftDown"
@@ -45,7 +45,7 @@
 		android:layout_alignLeft="@+id/imageViewLefUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-		android:layout_marginTop="5dip" 
+		android:layout_marginTop="10dip" 
 		android:layout_marginLeft="10dip"		
         android:src="@drawable/data_normal" />
      	<TextView
@@ -61,7 +61,7 @@
 	        android:gravity="right"   
 	        android:textSize="35dp"
 	        android:textColor="@color/white"
-	        android:text="1909" />
+	        android:text="50" />
      	<TextView
 	        android:id="@+id/tvLeftDownText"
 	        android:layout_width="wrap_content"
@@ -72,16 +72,16 @@
 	        android:layout_alignBottom="@+id/imageViewLeftDown"
 	        android:layout_marginTop="42dip"
 	        android:gravity="center"    
-	        android:textSize="15dp"
+	        android:textSize="13dp"
 	        android:textColor="@color/white"
-	        android:text="转速" /> 
+	        android:text="进气温度" /> 
 	    <ImageView
 	        android:id="@+id/imageViewUnitLeftDown"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignTop="@+id/imageViewLeftDown"
 	        android:layout_alignRight="@+id/imageViewLeftDown"
-	        android:src="@drawable/unit_rpm_800x480" />   
+	        android:src="@drawable/unit_celsius_800x480" />   
 
 
 <ImageView
@@ -104,7 +104,7 @@
 	        android:gravity="right"   
 	        android:textSize="35dp"
 	        android:textColor="@color/white"
-	        android:text="1909" />
+	        android:text="40.4" />
      	<TextView
 	        android:id="@+id/tvCenterUpText"
 	        android:layout_width="wrap_content"
@@ -115,23 +115,23 @@
 	        android:layout_alignBottom="@+id/imageViewCenterUp"
 	        android:layout_marginTop="42dip"
 	        android:gravity="center"    
-	        android:textSize="15dp"
+	        android:textSize="13dp"
 	        android:textColor="@color/white"
-	        android:text="转速" /> 
+	        android:text="节气门位置" /> 
 	    <ImageView
 	        android:id="@+id/imageViewUnitCenterUp"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignTop="@+id/imageViewCenterUp"
 	        android:layout_alignRight="@+id/imageViewCenterUp"
-	        android:src="@drawable/unit_rpm_800x480" />   
+	        android:src="@drawable/unit_percent_800x480" />   
 <ImageView
         android:id="@+id/imageViewCenterCenter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/imageViewCenterUp"
-        android:layout_marginTop="12dip"
+        android:layout_marginTop="15dip"
         android:src="@drawable/data_normal" />
      	<TextView
 	        android:id="@+id/tvCenterCenterValue"
@@ -146,7 +146,7 @@
 	        android:gravity="right"   
 	        android:textSize="35dp"
 	        android:textColor="@color/white"
-	        android:text="1909" />
+	        android:text="4.3" />
      	<TextView
 	        android:id="@+id/tvCenterCenterText"
 	        android:layout_width="wrap_content"
@@ -159,21 +159,21 @@
 	        android:gravity="center"    
 	        android:textSize="15dp"
 	        android:textColor="@color/white"
-	        android:text="转速" /> 
+	        android:text="动力负荷" /> 
 	    <ImageView
 	        android:id="@+id/imageViewUnitCenterCenter"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignTop="@+id/imageViewCenterCenter"
 	        android:layout_alignRight="@+id/imageViewCenterCenter"
-	        android:src="@drawable/unit_rpm_800x480" />   
+	        android:src="@drawable/unit_percent_800x480" />   
 <ImageView
         android:id="@+id/imageViewCenterDown"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/imageViewCenterCenter"
-        android:layout_marginTop="12dip"
+        android:layout_marginTop="18dip"
         android:src="@drawable/data_normal" />
      	<TextView
 	        android:id="@+id/tvCenterDownValue"
@@ -188,7 +188,7 @@
 	        android:gravity="right"   
 	        android:textSize="35dp"
 	        android:textColor="@color/white"
-	        android:text="1909" />
+	        android:text="7" />
      	<TextView
 	        android:id="@+id/tvCenterDownText"
 	        android:layout_width="wrap_content"
@@ -199,22 +199,22 @@
 	        android:layout_alignBottom="@+id/imageViewCenterDown"
 	        android:layout_marginTop="42dip"
 	        android:gravity="center"    
-	        android:textSize="15dp"
+	        android:textSize="13dp"
 	        android:textColor="@color/white"
-	        android:text="转速" /> 
+	        android:text="点火提前角" /> 
 	    <ImageView
 	        android:id="@+id/imageViewUnitCenterDown"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignTop="@+id/imageViewCenterDown"
 	        android:layout_alignRight="@+id/imageViewCenterDown"
-	        android:src="@drawable/unit_rpm_800x480" />   
+	        android:src="@drawable/unit_degree_800x480" />   
         
 <ImageView
         android:id="@+id/imageViewRightUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-		android:layout_marginTop="15dip" 
+		android:layout_marginTop="20dip" 
 		android:layout_marginRight="20dip"
 		android:layout_alignParentRight="true"
         android:src="@drawable/data_big" />
@@ -250,7 +250,7 @@
 		android:layout_alignRight="@+id/imageViewRightUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-		android:layout_marginTop="5dip" 
+		android:layout_marginTop="10dip" 
 		android:layout_marginRight="10dip"		
         android:src="@drawable/data_normal" />
      	<TextView
@@ -266,7 +266,7 @@
 	        android:gravity="right"   
 	        android:textSize="35dp"
 	        android:textColor="@color/white"
-	        android:text="1909" />
+	        android:text="72" />
      	<TextView
 	        android:id="@+id/tvRightDownText"
 	        android:layout_width="wrap_content"
@@ -277,15 +277,15 @@
 	        android:layout_alignBottom="@+id/imageViewRightDown"
 	        android:layout_marginTop="42dip"
 	        android:gravity="center"    
-	        android:textSize="15dp"
+	        android:textSize="13dp"
 	        android:textColor="@color/white"
-	        android:text="转速" /> 
+	        android:text="进气压力" /> 
 	    <ImageView
 	        android:id="@+id/imageViewUnitRightDown"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignTop="@+id/imageViewRightDown"
 	        android:layout_alignRight="@+id/imageViewRightDown"
-	        android:src="@drawable/unit_rpm_800x480" />   
+	        android:src="@drawable/unit_kpa_800x480" />   
 
 </RelativeLayout>

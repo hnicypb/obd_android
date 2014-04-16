@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 
+import com.vchecker.obd.communication.ObdDemoData;
+
 /**
  * @author yangyu
  *	功能描述：自定义TabHost
@@ -44,7 +46,17 @@ public class MainActivity extends FragmentActivity{
         setContentView(R.layout.activity_main);
         
         initView();
+        
+        initDemoData();
     }
+	
+	/**
+	 * 初始化延时数据
+	 */
+	private void initDemoData(){
+		ObdDemoData demoData = new ObdDemoData(this);
+		demoData.fInitDemoData();
+	}	
 	 
 	/**
 	 * 初始化组件
