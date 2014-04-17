@@ -6,6 +6,7 @@ import com.vchecker.obd.R;
 import com.vchecker.obd.MainPager.TabsAdapter;
 import com.vchecker.obd.MainPager.TabsAdapter.DummyTabFactory;
 import com.vchecker.obd.MainPager.TabsAdapter.TabInfo;
+import com.vchecker.obd.communication.ObdDemoData;
 import com.vchecker.obd.main.*;
 
 import android.support.v7.app.ActionBarActivity;
@@ -17,6 +18,7 @@ import android.support.v4.app.FragmentTabHost;
 import android.support.v4.view.ViewPager;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,7 +43,9 @@ public class MainPager extends FragmentActivity {
 	private final Class[] fragments = { FragmentPage_idle.class, FragmentPage_tour.class,
 			FragmentPage_race.class, FragmentPage_detail.class,FragmentPage_setup.class };
 
-
+	//定时刷新界面数据
+	private Handler handlerUpdate = new Handler();
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -51,13 +55,41 @@ public class MainPager extends FragmentActivity {
         		WindowManager.LayoutParams.FLAG_FULLSCREEN);//设置全屏
         
 		setContentView(R.layout.activity_main_pager);
+		// 初始化界面
 		initView();
 		if (savedInstanceState != null) {
-			mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab"));
+			mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab"));			
 		}
-	}
-	private void initView() {
+		
 
+        // 初始化演示数据
+        initDemoData();
+        // 定时刷新界面数据
+        handlerUpdate.removeCallbacks(runnable);
+        handlerUpdate.postDelayed(runnable,1000); 
+	}
+
+	/**
+	 * 初始化延时数据
+	 */
+	private void initDemoData(){
+		ObdDemoData demoData = new ObdDemoData(this);
+		demoData.fInitDemoData();
+	}	
+
+	private void update(){
+		
+	}
+	
+    private Runnable runnable = new Runnable() {
+         public void run () {
+             update();
+             handlerUpdate.postDelayed(this,1000); 
+      }
+    };
+    
+
+	private void initView() {
 		mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
 		mTabHost.setup(this, getSupportFragmentManager());
 		mViewPage = (ViewPager) findViewById(R.id.pager);
