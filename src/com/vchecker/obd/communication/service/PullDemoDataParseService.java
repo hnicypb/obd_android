@@ -13,6 +13,11 @@ import android.widget.Toast;
 import com.vchecker.obd.communication.entity.*;
 
 public class PullDemoDataParseService {
+	/**用PULL解析故障码数据
+	 * @param inputStream --- XML文件流
+	 * @return  故障码信息
+	 * @throws Exception
+	 */
 	public static List<TroubleCodeItem> getTroubleCode(InputStream inputStream) throws Exception{  
 		List<TroubleCodeItem> listTroubleCode = null;  
 		TroubleCodeItem troubleCodeItem = null;  
@@ -50,16 +55,19 @@ public class PullDemoDataParseService {
         return listTroubleCode;  
     }  
 	
-	public static List<DataStreamItem> getDatastream(InputStream inputStream) throws Exception{  
+	/**
+	 * @param inputStream --- XML文件流
+	 * @param strDsIDs --- 数据流ID列表
+	 * @return  数据流数据
+	 * @throws Exception
+	 */
+	public static List<DataStreamItem> getDatastream(InputStream inputStream,String[] strDsIDs) throws Exception{  
 		List<DataStreamItem> listDataStream = null;  
 		DataStreamItem dataStreamItem = null;  
         XmlPullParser parser = Xml.newPullParser();  
         parser.setInput(inputStream, "UTF-8");  
         
         Log.i("DataItem", "获取数据流的演示数据");
-        String strDsID[] = {"xFF010001","xFF010002","xFF010005","xFF010006","xFF010007","xFF010008","xFF010009",
-        		"xFF01000B","xFF01000E","x00000400","x00000500","x00000B00","x00000C00","x00000D00","x00000E00",
-        		"x00000F00","x00001100",};
         
         int event = parser.getEventType();//产生第一个事件  
         while(event!=XmlPullParser.END_DOCUMENT){  
@@ -72,8 +80,8 @@ public class PullDemoDataParseService {
             case XmlPullParser.START_TAG:{//判断当前事件是否是标签元素开始事件  
 	                if("DataItem".equals(parser.getName())){//判断开始标签元素是否是
 	                	dataStreamItem = new DataStreamItem();  
-	                	for(int i=0;i<17;i++){
-		                	dataStreamItem.setDataItem(strDsID[i],Float.parseFloat(parser.getAttributeValue(i)));//
+	                	for(int i=0;i<strDsIDs.length;i++){
+		                	dataStreamItem.setDataItem(strDsIDs[i],Float.parseFloat(parser.getAttributeValue(i)));//
 	                	}
 	                } 
             	}

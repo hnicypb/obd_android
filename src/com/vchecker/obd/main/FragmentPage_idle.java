@@ -15,4 +15,8 @@ public class FragmentPage_idle extends Fragment{
 		
 		return inflater.inflate(R.layout.fragment_idle, null);		
 	}	
+	
+	public void update(){
+		
+	}
 }

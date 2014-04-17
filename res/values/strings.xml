@@ -4,5 +4,6 @@
     <string name="app_name">obd</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_main_pager">OBD智能行车电脑</string>
 
 </resources>
