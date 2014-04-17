@@ -16,6 +16,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.view.ViewPager;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,6 +31,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
 import android.widget.TabWidget;
+import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.os.Build;
@@ -78,7 +80,25 @@ public class MainPager extends FragmentActivity {
 	}	
 
 	private void update(){
-		
+		switch(mTabHost.getCurrentTab()){
+		case 0:			
+			Toast.makeText(this, "怠速", Toast.LENGTH_SHORT).show();
+			
+			break;
+		case 1:
+			Toast.makeText(this, "巡航", Toast.LENGTH_SHORT).show();
+			break;
+		case 2:
+			Toast.makeText(this, "竞技", Toast.LENGTH_SHORT).show();
+			break;
+		case 3:
+			Toast.makeText(this, "明细", Toast.LENGTH_SHORT).show();
+			break;
+		case 4:
+			Toast.makeText(this, "设置", Toast.LENGTH_SHORT).show();
+		default:
+			break; 
+		}
 	}
 	
     private Runnable runnable = new Runnable() {
