@@ -35,6 +35,8 @@ public class ObdDemoData {
 	public ObdDemoData(Context context){
 		m_Context = context;
 	}
+	
+	private int miCurrDemoDataIndex=0;
 
 	/** 初始化Demo数据 使用pull方式解析xml
 	 * @return 成功返回true，失败返回false
@@ -71,5 +73,11 @@ public class ObdDemoData {
 		return true;
 	}
 	
+	public DataStreamItem fGetNextDataStream(){
+		if(miCurrDemoDataIndex++>=(m_listDemoDataList.size()-1))
+			miCurrDemoDataIndex=0;
+
+		return m_listDemoDataList.get(miCurrDemoDataIndex);
+	}
 	
 }

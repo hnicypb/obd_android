@@ -1,12 +1,17 @@
 package com.vchecker.obd;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 import com.vchecker.obd.R;
 import com.vchecker.obd.MainPager.TabsAdapter;
 import com.vchecker.obd.MainPager.TabsAdapter.DummyTabFactory;
 import com.vchecker.obd.MainPager.TabsAdapter.TabInfo;
 import com.vchecker.obd.communication.ObdDemoData;
+import com.vchecker.obd.communication.entity.DataStreamItem;
 import com.vchecker.obd.main.*;
 
 import android.support.v7.app.ActionBarActivity;
@@ -16,9 +21,12 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.view.ViewPager;
+import android.text.format.Time;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,6 +38,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
 import android.widget.TabWidget;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.os.Build;
@@ -42,10 +52,29 @@ public class MainPager extends FragmentActivity {
 	TabsAdapter mTabsAdapter;
 	private final Class[] fragments = { FragmentPage_idle.class, FragmentPage_tour.class,
 			FragmentPage_race.class, FragmentPage_detail.class,FragmentPage_setup.class };
+	
+	public static final int WEEKDAYS = 7;	  
 
 	//定时刷新界面数据
 	private Handler handlerUpdate = new Handler();
+	ObdDemoData mDemoData;
 	
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+        // 定时刷新界面数据
+        handlerUpdate.removeCallbacks(runnable);
+        handlerUpdate.postDelayed(runnable,1000); 
+	}
+
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+        handlerUpdate.removeCallbacks(runnable);
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -64,21 +93,111 @@ public class MainPager extends FragmentActivity {
 
         // 初始化演示数据
         initDemoData();
-        // 定时刷新界面数据
-        handlerUpdate.removeCallbacks(runnable);
-        handlerUpdate.postDelayed(runnable,1000); 
 	}
 
 	/**
-	 * 初始化延时数据
+	 * 初始化演示数据
 	 */
 	private void initDemoData(){
-		ObdDemoData demoData = new ObdDemoData(this);
-		demoData.fInitDemoData();
+		mDemoData = new ObdDemoData(this);
+		mDemoData.fInitDemoData();
 	}	
 
-	private void update(){
-		
+	private void update(){		
+		DataStreamItem ds = mDemoData.fGetNextDataStream();
+		TextView tv;
+		switch(mTabHost.getCurrentTab()){
+		case 0:{//怠速 {"x00020001","xFF010005","xFF010002","x00000C00","xFF01000B","x00000F00"};
+//			Log.i("DataItem", ds.getDataItemS("x00020001"));
+//			Log.i("DataItem", ds.getDataItemS("xFF010005"));
+//			Log.i("DataItem", ds.getDataItemS("xFF010002"));
+//			Log.i("DataItem", ds.getDataItemS("x00000C00"));
+//			Log.i("DataItem", ds.getDataItemS("xFF01000B"));
+//			Log.i("DataItem", ds.getDataItemS("x00000F00"));
+			
+			tv = (TextView)findViewById(R.id.tvLeftUpValue);
+			tv.setText(ds.getDataItemS("x00020001"));
+			tv = (TextView)findViewById(R.id.tvLeftCenterValue);
+			tv.setText(ds.getDataItemS("xFF010005"));//			
+			tv = (TextView)findViewById(R.id.tvLeftDownValue);
+			tv.setText(ds.getDataItemS("xFF010002"));			
+			tv = (TextView)findViewById(R.id.tvRightUpValue);
+			tv.setText(ds.getDataItemS("x00000C00"));			
+			tv = (TextView)findViewById(R.id.tvRightCenterValue);
+			tv.setText(ds.getDataItemS("xFF01000B"));			
+			tv = (TextView)findViewById(R.id.tvRightDownValue);
+			tv.setText(ds.getDataItemS("x00000F00"));
+			
+			tv = (TextView)findViewById(R.id.tvWaterValue);
+			tv.setText(ds.getDataItemS("x00000500"));
+			
+			long time=System.currentTimeMillis();//long now = android.os.SystemClock.uptimeMillis();  
+		    SimpleDateFormat formatDate=new SimpleDateFormat("yyyy-MM-dd");  
+		    SimpleDateFormat formatTime=new SimpleDateFormat("HH:mm:ss"); 
+		    Date date=new Date(time);  
+		    String sDate=formatDate.format(date);
+		    String sTime=formatTime.format(date);
+		        
+			tv = (TextView)findViewById(R.id.tvDate);
+			tv.setText(sDate);
+
+			tv = (TextView)findViewById(R.id.tvTime);
+			tv.setText(sTime);
+				
+			Calendar calendar = Calendar.getInstance();  
+		    calendar.setTime(date);  
+		    String mWay=getResources().getStringArray(R.array.Week)[calendar.get(Calendar.DAY_OF_WEEK)-1];
+	        tv = (TextView)findViewById(R.id.tvWeek);
+			tv.setText(mWay);
+		}
+		break;
+		case 1:{//巡航{"0xFF010007","0xFF010009","0x00000500","0xFF010008","0xFF010006","0xFF010001"};
+			tv = (TextView)findViewById(R.id.tvLeftUpValue);
+			tv.setText(ds.getDataItemS("xFF010007"));
+			tv = (TextView)findViewById(R.id.tvLeftCenterValue);
+			tv.setText(ds.getDataItemS("xFF010009"));//			
+			tv = (TextView)findViewById(R.id.tvLeftDownValue);
+			tv.setText(ds.getDataItemS("x00000500"));			
+			tv = (TextView)findViewById(R.id.tvRightUpValue);
+			tv.setText(ds.getDataItemS("xFF010008"));			
+			tv = (TextView)findViewById(R.id.tvRightCenterValue);
+			tv.setText(ds.getDataItemS("xFF010006"));			
+			tv = (TextView)findViewById(R.id.tvRightDownValue);
+			tv.setText(ds.getDataItemS("xFF010001"));			
+
+			tv = (TextView)findViewById(R.id.tvSpeedvalue);
+			tv.setText(ds.getDataItemS("x00000D00"));
+			
+		}
+		break;
+		case 2:{//竞技{"0x00000D00","0x00000F00","0x00001100","0x00000400","0x00000400","0x00000E00","0x00000C00","0x00000B00"};
+			tv = (TextView)findViewById(R.id.tvLeftUpValue);
+			tv.setText(ds.getDataItemS("x00000D00"));	
+			tv = (TextView)findViewById(R.id.tvLeftDownValue);
+			tv.setText(ds.getDataItemS("x00000F00"));		
+			tv = (TextView)findViewById(R.id.tvCenterUpValue);
+			tv.setText(ds.getDataItemS("x00001100"));			
+			tv = (TextView)findViewById(R.id.tvCenterCenterValue);
+			tv.setText(ds.getDataItemS("x00000400"));			
+			tv = (TextView)findViewById(R.id.tvCenterDownValue);
+			tv.setText(ds.getDataItemS("x00000E00"));	
+			tv = (TextView)findViewById(R.id.tvRightUpValue);
+			tv.setText(ds.getDataItemS("x00000C00"));			
+			tv = (TextView)findViewById(R.id.tvRightDownValue);
+			tv.setText(ds.getDataItemS("x00000B00"));
+			
+		}
+		break;
+		case 3:{	//明细
+			
+		}
+		break;
+		case 4:{	//设置
+			
+		}
+		break;		
+			
+		}
 	}
 	
     private Runnable runnable = new Runnable() {
@@ -125,6 +244,8 @@ public class MainPager extends FragmentActivity {
 				default:
 					break;
 				}
+				
+				update();
 			}
 		});
 	}

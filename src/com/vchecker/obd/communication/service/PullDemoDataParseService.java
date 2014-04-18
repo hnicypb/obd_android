@@ -81,7 +81,8 @@ public class PullDemoDataParseService {
 	                if("DataItem".equals(parser.getName())){//判断开始标签元素是否是
 	                	dataStreamItem = new DataStreamItem();  
 	                	for(int i=0;i<strDsIDs.length;i++){
-		                	dataStreamItem.setDataItem(strDsIDs[i],Float.parseFloat(parser.getAttributeValue(i)));//
+		                	dataStreamItem.setDataItemS(strDsIDs[i],parser.getAttributeValue(i));//
+		                	dataStreamItem.setDataItemF(strDsIDs[i],Float.parseFloat(parser.getAttributeValue(i)));//
 	                	}
 	                } 
             	}

@@ -154,7 +154,8 @@
 	        android:layout_alignTop="@+id/imageViewWaterTemp"
 	        android:layout_alignBottom="@+id/imageViewWaterTemp"
 	        android:gravity="center"   
-	        android:textSize="120dp"
+	        android:textSize="100dp"
+	        android:textStyle="bold"
 	        android:textColor="@color/black"
 	        android:text="80" />     	
 
@@ -166,9 +167,10 @@
 	        android:layout_alignRight="@+id/imageViewWaterTemp"
 	        android:layout_alignTop="@+id/imageViewWaterTemp"
 	        android:layout_alignBottom="@+id/imageViewWaterTemp"
-			android:layout_marginTop="130dip" 
+			android:layout_marginTop="110dip" 
 	        android:gravity="center"   
 	        android:textSize="20dp"
+	        android:textStyle="bold"
 	        android:textColor="@color/black"
 	        android:text="水温" />
         
@@ -356,7 +358,7 @@
 	        android:layout_marginTop="-5dip"     
 	        android:layout_marginBottom="5dip"
 	        android:gravity="center"   
-	        android:textSize="25dp"
+	        android:textSize="20dp"
 	        android:textColor="@color/white"
 	        android:text="17:11" />
     <!-- 日期 时间 -->
