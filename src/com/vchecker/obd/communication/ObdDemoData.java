@@ -37,6 +37,13 @@ public class ObdDemoData {
 	}
 	
 	private int miCurrDemoDataIndex=0;
+	
+	//当前油价
+	private float mfFuelPrice;
+	//即时油耗系数
+	private float mfNowFCC;
+	//平局油耗系数
+	private float mfAvgFCC;
 
 	/** 初始化Demo数据 使用pull方式解析xml
 	 * @return 成功返回true，失败返回false
@@ -51,19 +58,44 @@ public class ObdDemoData {
             in.reset();
             m_listDemoDataList = pullDemoService.getDatastream(in,m_strDsIDs);
             
-//            for(int i=0;i<m_listDemoDataList.size();i++){
-//            	DataStreamItem dsi = (DataStreamItem)m_listDemoDataList.get(i);
+            for(int i=0;i<m_listDemoDataList.size();i++){
+            	DataStreamItem dsi = (DataStreamItem)m_listDemoDataList.get(i);
 //            	String strText = "";
 //            	for(int j=0;j<m_strDsIDs.length;j++){
 //            		strText += dsi.getDataItem(m_strDsIDs[j].toString()) + ";";
 //            	}
 //            	Log.i("DataItem", strText);
-//            }
+            	//本次行驶油费
+            	dsi.setDataItemF("x00020001", 0.0);
+            	dsi.setDataItemS("x00020001", "-----");
+            	//本次每公里花费
+            	dsi.setDataItemF("x00020002", 0.0);
+            	dsi.setDataItemS("x00020002", "-----");
+            	//总行车油费
+            	dsi.setDataItemF("x00020003", 0.0);
+            	dsi.setDataItemS("x00020003", "-----");
+            	//累计每公里花费
+            	dsi.setDataItemF("x00020004", 0.0);
+            	dsi.setDataItemS("x00020004", "-----");
+            	//累计耗油量
+            	dsi.setDataItemF("xFF01000F", 0.0);
+            	dsi.setDataItemS("xFF01000F", "-----");
+            	//累计里程
+            	dsi.setDataItemF("xFF01000A", 0.0);
+            	dsi.setDataItemS("xFF01000A", "-----");
+            }
 //            
 //            for(int i=0;i<m_listTroubleCode.size();i++){
 //            	TroubleCodeItem tci = (TroubleCodeItem)m_listTroubleCode.get(i);
 //            	Log.i("DataItem", tci.getsCodeText());
 //            }
+            
+
+        	
+            
+            mfFuelPrice = (float) 7.9;
+            mfAvgFCC = 116;
+            mfNowFCC = 331;
              
         }catch(Exception e){
             e.printStackTrace();
@@ -74,10 +106,59 @@ public class ObdDemoData {
 	}
 	
 	public DataStreamItem fGetNextDataStream(){
+		DataStreamItem dsi = m_listDemoDataList.get(miCurrDemoDataIndex);
+		//计算值
+		//本次行驶里程
+		float fValue = (float) (dsi.getDataItemF("xFF010008"));
+		dsi.setDataItemS("xFF010008", String.valueOf(fValue));
+		Log.i("DataItem", "本次行驶里程="+dsi.getDataItemS("xFF010008"));
+		//累计行驶里程
+		fValue = (float) (dsi.getDataItemF("xFF010008") + dsi.getDataItemF("xFF01000E"));
+		dsi.setDataItemF("xFF01000A", fValue);
+		dsi.setDataItemS("xFF01000A", String.valueOf(fValue));
+		Log.i("DataItem", "累计行驶里程="+dsi.getDataItemS("xFF01000A"));
+		
+		//本次耗油
+		fValue = (float) (mfFuelPrice*dsi.getDataItemF("xFF01000E")/116.0*mfAvgFCC);
+		dsi.setDataItemF("xFF01000E", fValue);
+		dsi.setDataItemS("xFF01000E", String.valueOf(fValue));
+		Log.i("DataItem", "本次耗油="+dsi.getDataItemS("xFF01000E"));
+		//累计耗油
+		fValue = (float) (dsi.getDataItemF("xFF01000E") + mfFuelPrice*dsi.getDataItemF("xFF01000F"));
+		dsi.setDataItemF("xFF01000F", fValue);
+		dsi.setDataItemS("xFF01000F", String.valueOf(fValue));
+		Log.i("DataItem", "累计耗油="+dsi.getDataItemS("xFF01000F"));
+		
+		//本次行驶油费(本次耗油量L*油价)
+		fValue = mfFuelPrice*dsi.getDataItemF("xFF01000E");
+		dsi.setDataItemF("x00020001", fValue);
+		dsi.setDataItemS("x00020001",String.valueOf(fValue));		
+		Log.i("DataItem", "本次行驶油费="+dsi.getDataItemS("x00020001"));
+		// 总行车油费(总行车油费L*油价)
+		fValue = (float)mfFuelPrice*dsi.getDataItemF("x00020003");
+		dsi.setDataItemF("x00020003", fValue);
+		dsi.setDataItemS("x00020003", String.valueOf(fValue));		
+		Log.i("DataItem", "总行车油费="+dsi.getDataItemS("x00020003"));
+
+		//本次每公里花费(本次耗油量L*油价)/本次里程
+		fValue = (float)mfFuelPrice*dsi.getDataItemF("xFF01000E")/dsi.getDataItemF("xFF010008");
+		dsi.setDataItemF("x00020002", fValue);
+		dsi.setDataItemS("x00020002", String.valueOf(fValue));		
+		Log.i("DataItem", "本次每公里花费="+dsi.getDataItemS("x00020002"));
+		//累计每公里花费(总行车油费L*油价)/累计里程
+		fValue = (float)mfFuelPrice*dsi.getDataItemF("xFF01000F")/dsi.getDataItemF("xFF01000A");
+		dsi.setDataItemF("x00020004", fValue);
+		dsi.setDataItemS("x00020004", String.valueOf(fValue));
+		Log.i("DataItem", "累计每公里花费="+dsi.getDataItemS("x00020004"));
+
+//		//本次行驶时间
+		int iMinuter = (int) (dsi.getDataItemF("xFF010007")/60);
+		dsi.setDataItemS("xFF010007", String.format("%02d",iMinuter/60)	+ ":" + String.format("%02d",iMinuter%60));
+		
 		if(miCurrDemoDataIndex++>=(m_listDemoDataList.size()-1))
 			miCurrDemoDataIndex=0;
-
-		return m_listDemoDataList.get(miCurrDemoDataIndex);
+		
+		return dsi;
 	}
 	
 }

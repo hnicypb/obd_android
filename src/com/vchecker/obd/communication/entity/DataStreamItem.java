@@ -15,8 +15,8 @@ public class DataStreamItem {
 		this.m_mapDataItemF = mapDataItemF;
 	}
 	
-	public void setDataItemF(String strID,Float fValue){
-		m_mapDataItemF.put(strID, fValue);
+	public void setDataItemF(String strID,double d){
+		m_mapDataItemF.put(strID, (float) d);
 	}
 	
 	public Float getDataItemF(String strID){

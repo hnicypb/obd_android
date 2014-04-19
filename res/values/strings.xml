@@ -4,7 +4,7 @@
     <string name="app_name">obd</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_main_pager">OBD智能行车电脑</string>
+    <string name="title_activity_main_pager">智能行车电脑</string>
     <string-array name="Week">
         <item >星期天</item>
         <item >星期一</item>

@@ -115,17 +115,17 @@ public class MainPager extends FragmentActivity {
 //			Log.i("DataItem", ds.getDataItemS("xFF01000B"));
 //			Log.i("DataItem", ds.getDataItemS("x00000F00"));
 			
-			tv = (TextView)findViewById(R.id.tvLeftUpValue);
+			tv = (TextView)findViewById(R.id.tvIdleLeftUpValue);
 			tv.setText(ds.getDataItemS("x00020001"));
-			tv = (TextView)findViewById(R.id.tvLeftCenterValue);
+			tv = (TextView)findViewById(R.id.tvIdleLeftCenterValue);
 			tv.setText(ds.getDataItemS("xFF010005"));//			
-			tv = (TextView)findViewById(R.id.tvLeftDownValue);
+			tv = (TextView)findViewById(R.id.tvIdleLeftDownValue);
 			tv.setText(ds.getDataItemS("xFF010002"));			
-			tv = (TextView)findViewById(R.id.tvRightUpValue);
+			tv = (TextView)findViewById(R.id.tvIdleRightUpValue);
 			tv.setText(ds.getDataItemS("x00000C00"));			
-			tv = (TextView)findViewById(R.id.tvRightCenterValue);
+			tv = (TextView)findViewById(R.id.tvIdleRightCenterValue);
 			tv.setText(ds.getDataItemS("xFF01000B"));			
-			tv = (TextView)findViewById(R.id.tvRightDownValue);
+			tv = (TextView)findViewById(R.id.tvIdleRightDownValue);
 			tv.setText(ds.getDataItemS("x00000F00"));
 			
 			tv = (TextView)findViewById(R.id.tvWaterValue);
@@ -152,17 +152,17 @@ public class MainPager extends FragmentActivity {
 		}
 		break;
 		case 1:{//Ñ²º½{"0xFF010007","0xFF010009","0x00000500","0xFF010008","0xFF010006","0xFF010001"};
-			tv = (TextView)findViewById(R.id.tvLeftUpValue);
+			tv = (TextView)findViewById(R.id.tvTourLeftUpValue);
 			tv.setText(ds.getDataItemS("xFF010007"));
-			tv = (TextView)findViewById(R.id.tvLeftCenterValue);
+			tv = (TextView)findViewById(R.id.tvTourLeftCenterValue);
 			tv.setText(ds.getDataItemS("xFF010009"));//			
-			tv = (TextView)findViewById(R.id.tvLeftDownValue);
+			tv = (TextView)findViewById(R.id.tvTourLeftDownValue);
 			tv.setText(ds.getDataItemS("x00000500"));			
-			tv = (TextView)findViewById(R.id.tvRightUpValue);
+			tv = (TextView)findViewById(R.id.tvTourRightUpValue);
 			tv.setText(ds.getDataItemS("xFF010008"));			
-			tv = (TextView)findViewById(R.id.tvRightCenterValue);
+			tv = (TextView)findViewById(R.id.tvTourRightCenterValue);
 			tv.setText(ds.getDataItemS("xFF010006"));			
-			tv = (TextView)findViewById(R.id.tvRightDownValue);
+			tv = (TextView)findViewById(R.id.tvTourRightDownValue);
 			tv.setText(ds.getDataItemS("xFF010001"));			
 
 			tv = (TextView)findViewById(R.id.tvSpeedvalue);
@@ -171,19 +171,19 @@ public class MainPager extends FragmentActivity {
 		}
 		break;
 		case 2:{//¾º¼¼{"0x00000D00","0x00000F00","0x00001100","0x00000400","0x00000400","0x00000E00","0x00000C00","0x00000B00"};
-			tv = (TextView)findViewById(R.id.tvLeftUpValue);
+			tv = (TextView)findViewById(R.id.tvRaceLeftUpValue);
 			tv.setText(ds.getDataItemS("x00000D00"));	
-			tv = (TextView)findViewById(R.id.tvLeftDownValue);
+			tv = (TextView)findViewById(R.id.tvRaceLeftDownValue);
 			tv.setText(ds.getDataItemS("x00000F00"));		
-			tv = (TextView)findViewById(R.id.tvCenterUpValue);
+			tv = (TextView)findViewById(R.id.tvRaceCenterUpValue);
 			tv.setText(ds.getDataItemS("x00001100"));			
-			tv = (TextView)findViewById(R.id.tvCenterCenterValue);
+			tv = (TextView)findViewById(R.id.tvRaceCenterCenterValue);
 			tv.setText(ds.getDataItemS("x00000400"));			
-			tv = (TextView)findViewById(R.id.tvCenterDownValue);
+			tv = (TextView)findViewById(R.id.tvRaceCenterDownValue);
 			tv.setText(ds.getDataItemS("x00000E00"));	
-			tv = (TextView)findViewById(R.id.tvRightUpValue);
+			tv = (TextView)findViewById(R.id.tvRaceRightUpValue);
 			tv.setText(ds.getDataItemS("x00000C00"));			
-			tv = (TextView)findViewById(R.id.tvRightDownValue);
+			tv = (TextView)findViewById(R.id.tvRaceRightDownValue);
 			tv.setText(ds.getDataItemS("x00000B00"));
 			
 		}
