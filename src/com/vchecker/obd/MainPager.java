@@ -188,8 +188,28 @@ public class MainPager extends FragmentActivity {
 			
 		}
 		break;
-		case 3:{	//Ã÷Ï¸
+		case 3:{	//Ã÷Ï¸{"0xFF010008","0xFF010006","0xFF01000E","0x00020001","0x00020002","0xFF01000A","0xFF010005","0xFF01000F","0x00020003","0x00020004"}
+			tv = (TextView)findViewById(R.id.tvDetailLeft1Value);
+			tv.setText(ds.getDataItemS("xFF010008"));	
+			tv = (TextView)findViewById(R.id.tvDetailLeft2Value);
+			tv.setText(ds.getDataItemS("xFF010006"));		
+			tv = (TextView)findViewById(R.id.tvDetailLeft3Value);
+			tv.setText(ds.getDataItemS("xFF01000E"));			
+			tv = (TextView)findViewById(R.id.tvDetailLeft4Value);
+			tv.setText(ds.getDataItemS("x00020001"));			
+			tv = (TextView)findViewById(R.id.tvDetailLeft5Value);
+			tv.setText(ds.getDataItemS("x00020002"));	
 			
+			tv = (TextView)findViewById(R.id.tvDetailRight1Value);
+			tv.setText(ds.getDataItemS("xFF01000A"));	
+			tv = (TextView)findViewById(R.id.tvDetailRight2Value);
+			tv.setText(ds.getDataItemS("xFF010005"));		
+			tv = (TextView)findViewById(R.id.tvDetailRight3Value);
+			tv.setText(ds.getDataItemS("xFF01000F"));			
+			tv = (TextView)findViewById(R.id.tvDetailRight4Value);
+			tv.setText(ds.getDataItemS("x00020003"));			
+			tv = (TextView)findViewById(R.id.tvDetailRight5Value);
+			tv.setText(ds.getDataItemS("x00020004"));	
 		}
 		break;
 		case 4:{	//ÉèÖÃ

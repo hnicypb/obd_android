@@ -31,7 +31,6 @@ public class ObdDemoData {
     private String m_strDsIDs[] = {"xFF010001","xFF010002","xFF010005","xFF010006","xFF010007","xFF010008","xFF010009",
     		"xFF01000B","xFF01000E","x00000400","x00000500","x00000B00","x00000C00","x00000D00","x00000E00",
     		"x00000F00","x00001100",};
-	
 	public ObdDemoData(Context context){
 		m_Context = context;
 	}
