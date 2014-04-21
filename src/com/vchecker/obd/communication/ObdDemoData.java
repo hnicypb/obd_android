@@ -107,49 +107,55 @@ public class ObdDemoData {
 	
 	public DataStreamItem fGetNextDataStream(){
 		DataStreamItem dsi = m_listDemoDataList.get(miCurrDemoDataIndex);
+		
+		Map<String, Float> m = dsi.getM_mapDataItemS();
+		for(String key : m.keySet()){
+			Log.i("DataItem", key + " = " + String.valueOf(m.get(key)));
+		}
+		
 		//计算值
 		//本次行驶里程
 		float fValue = (float) (dsi.getDataItemF("xFF010008"));
 		dsi.setDataItemS("xFF010008", String.valueOf(fValue));
-		Log.i("DataItem", "本次行驶里程="+dsi.getDataItemS("xFF010008"));
+		Log.i("DataItem", "本次行驶里程xFF010008="+dsi.getDataItemS("xFF010008"));
 		//累计行驶里程
-		fValue = (float) (dsi.getDataItemF("xFF010008") + dsi.getDataItemF("xFF01000E"));
+		fValue = (float) (dsi.getDataItemF("xFF010008") + dsi.getDataItemF("xFF01000A"));
 		dsi.setDataItemF("xFF01000A", fValue);
 		dsi.setDataItemS("xFF01000A", String.valueOf(fValue));
-		Log.i("DataItem", "累计行驶里程="+dsi.getDataItemS("xFF01000A"));
+		Log.i("DataItem", "累计行驶里程xFF01000A="+dsi.getDataItemS("xFF01000A"));
 		
 		//本次耗油
-		fValue = (float) (mfFuelPrice*dsi.getDataItemF("xFF01000E")/116.0*mfAvgFCC);
+		fValue = (float) (dsi.getDataItemF("xFF01000E")/116.0*mfAvgFCC);
 		dsi.setDataItemF("xFF01000E", fValue);
 		dsi.setDataItemS("xFF01000E", String.valueOf(fValue));
-		Log.i("DataItem", "本次耗油="+dsi.getDataItemS("xFF01000E"));
+		Log.i("DataItem", "本次耗油xFF01000E="+dsi.getDataItemS("xFF01000E"));
 		//累计耗油
 		fValue = (float) (dsi.getDataItemF("xFF01000E") + mfFuelPrice*dsi.getDataItemF("xFF01000F"));
 		dsi.setDataItemF("xFF01000F", fValue);
 		dsi.setDataItemS("xFF01000F", String.valueOf(fValue));
-		Log.i("DataItem", "累计耗油="+dsi.getDataItemS("xFF01000F"));
+		Log.i("DataItem", "累计耗油xFF01000F="+dsi.getDataItemS("xFF01000F"));
 		
 		//本次行驶油费(本次耗油量L*油价)
 		fValue = mfFuelPrice*dsi.getDataItemF("xFF01000E");
 		dsi.setDataItemF("x00020001", fValue);
 		dsi.setDataItemS("x00020001",String.valueOf(fValue));		
-		Log.i("DataItem", "本次行驶油费="+dsi.getDataItemS("x00020001"));
+		Log.i("DataItem", "本次行驶油费x00020001="+dsi.getDataItemS("x00020001"));
 		// 总行车油费(总行车油费L*油价)
 		fValue = (float)mfFuelPrice*dsi.getDataItemF("x00020003");
 		dsi.setDataItemF("x00020003", fValue);
 		dsi.setDataItemS("x00020003", String.valueOf(fValue));		
-		Log.i("DataItem", "总行车油费="+dsi.getDataItemS("x00020003"));
+		Log.i("DataItem", "总行车油费x00020003="+dsi.getDataItemS("x00020003"));
 
 		//本次每公里花费(本次耗油量L*油价)/本次里程
 		fValue = (float)mfFuelPrice*dsi.getDataItemF("xFF01000E")/dsi.getDataItemF("xFF010008");
 		dsi.setDataItemF("x00020002", fValue);
 		dsi.setDataItemS("x00020002", String.valueOf(fValue));		
-		Log.i("DataItem", "本次每公里花费="+dsi.getDataItemS("x00020002"));
+		Log.i("DataItem", "本次每公里花费x00020002="+dsi.getDataItemS("x00020002"));
 		//累计每公里花费(总行车油费L*油价)/累计里程
 		fValue = (float)mfFuelPrice*dsi.getDataItemF("xFF01000F")/dsi.getDataItemF("xFF01000A");
 		dsi.setDataItemF("x00020004", fValue);
 		dsi.setDataItemS("x00020004", String.valueOf(fValue));
-		Log.i("DataItem", "累计每公里花费="+dsi.getDataItemS("x00020004"));
+		Log.i("DataItem", "累计每公里花费x00020004="+dsi.getDataItemS("x00020004"));
 
 //		//本次行驶时间
 		int iMinuter = (int) (dsi.getDataItemF("xFF010007")/60);
