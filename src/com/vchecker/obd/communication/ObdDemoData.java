@@ -108,9 +108,9 @@ public class ObdDemoData {
 		DataStreamItem dsi = m_listDemoDataList.get(miCurrDemoDataIndex);
 		
 		Map<String, Float> m = dsi.getM_mapDataItemS();
-		for(String key : m.keySet()){
-			Log.i("DataItem", key + " = " + String.valueOf(m.get(key)));
-		}
+//		for(String key : m.keySet()){
+//			Log.i("DataItem", key + " = " + String.valueOf(m.get(key)));
+//		}
 		
 		//计算值
 		//本次行驶里程

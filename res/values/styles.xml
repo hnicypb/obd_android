@@ -27,4 +27,5 @@
         <item name="android:gravity" >center</item>
         <item name="android:background" >@drawable/tab_selector_checked_bg</item>
     </style>
+    
 </resources>

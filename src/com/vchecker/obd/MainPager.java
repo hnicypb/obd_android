@@ -24,6 +24,8 @@ import android.support.v4.view.ViewPager;
 import android.text.format.Time;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -43,6 +45,7 @@ import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.os.Build;
+import android.preference.PreferenceManager;
 
 public class MainPager extends FragmentActivity {
 
@@ -54,6 +57,8 @@ public class MainPager extends FragmentActivity {
 			FragmentPage_race.class, FragmentPage_detail.class,FragmentPage_setup.class };
 	
 	public static final int WEEKDAYS = 7;	  
+	
+	Context mThis;
 
 	//定时刷新界面数据
 	private Handler handlerUpdate = new Handler();
@@ -75,6 +80,26 @@ public class MainPager extends FragmentActivity {
         handlerUpdate.removeCallbacks(runnable);
 	}
 
+    public static final int SET = Menu.FIRST;  
+    public static final int EXIT = Menu.FIRST+1;  
+	 //创建Menu菜单  
+    @Override  
+    public boolean onCreateOptionsMenu(Menu menu) {  
+        menu.add(0,SET,0,"设置").setIcon(android.R.drawable.ic_menu_preferences);  
+        return super.onCreateOptionsMenu(menu);  
+    }  
+    
+	@Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item) { 
+        // TODO Auto-generated method stub  
+        super.onOptionsItemSelected(item);  
+        Intent intent = new Intent(this, PreferenceSetup.class);  
+        startActivity(intent);  
+        
+		return false;
+		
+	};
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -84,13 +109,14 @@ public class MainPager extends FragmentActivity {
         		WindowManager.LayoutParams.FLAG_FULLSCREEN);//设置全屏
         
 		setContentView(R.layout.activity_main_pager);
+		
+		mThis = this;
 		// 初始化界面
 		initView();
 		if (savedInstanceState != null) {
 			mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab"));			
 		}
 		
-
         // 初始化演示数据
         initDemoData();
 	}
@@ -107,14 +133,7 @@ public class MainPager extends FragmentActivity {
 		DataStreamItem ds = mDemoData.fGetNextDataStream();
 		TextView tv;
 		switch(mTabHost.getCurrentTab()){
-		case 0:{//怠速 {"x00020001","xFF010005","xFF010002","x00000C00","xFF01000B","x00000F00"};
-//			Log.i("DataItem", ds.getDataItemS("x00020001"));
-//			Log.i("DataItem", ds.getDataItemS("xFF010005"));
-//			Log.i("DataItem", ds.getDataItemS("xFF010002"));
-//			Log.i("DataItem", ds.getDataItemS("x00000C00"));
-//			Log.i("DataItem", ds.getDataItemS("xFF01000B"));
-//			Log.i("DataItem", ds.getDataItemS("x00000F00"));
-			
+		case 0:{//怠速 {"x00020001","xFF010005","xFF010002","x00000C00","xFF01000B","x00000F00"};			
 			tv = (TextView)findViewById(R.id.tvIdleLeftUpValue);
 			tv.setText(ds.getDataItemS("x00020001"));
 			tv = (TextView)findViewById(R.id.tvIdleLeftCenterValue);
@@ -213,7 +232,14 @@ public class MainPager extends FragmentActivity {
 		}
 		break;
 		case 4:{	//设置
-			
+			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mThis); 
+		    //根据preferences 的key获取entity value，并给出缺省值。由于应用第一次运行时，没有保存的preference文件，如果不使用缺省值，则返回null。
+			//在这里，我们直接指定缺省值为“1”，这只是为了例子简单的便捷方式。实际上，我们应该在res/values/下设置我们的缺省值，
+			//除了可在preference的xml中引用，还可以直接在此设定缺省值。同一个值不要在多处进行赋值是编程的基本原则之一。  
+		    String option = prefs.getString("AlarmWaterTemp", "100"); 
+		    //通过entity value获取entity的内容  
+//		    String[] optionText = getResources().getStringArray(R.array.flight_sort_options); 
+//		    showInfo("option = " + option + ",select : " + optionText[Integer.parseInt(option)]);
 		}
 		break;		
 			
@@ -259,8 +285,11 @@ public class MainPager extends FragmentActivity {
 				case R.id.tab_rb_4:
 					mTabHost.setCurrentTab(3);
 					break;
-				case R.id.tab_rb_5:
-					mTabHost.setCurrentTab(4);
+				case R.id.tab_rb_5:{
+			        Intent intent = new Intent(mThis, PreferenceSetup.class);  
+			        startActivity(intent);  
+				}
+				break;
 				default:
 					break;
 				}
