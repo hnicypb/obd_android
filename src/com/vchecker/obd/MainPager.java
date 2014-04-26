@@ -351,7 +351,7 @@ public class MainPager extends FragmentActivity {
 		mTabRg = (RadioGroup) findViewById(R.id.tab_rg_menu);
 		mTabsAdapter = new TabsAdapter(this, mTabHost, mViewPage, mTabRg);
 		int count = fragments.length;
-		for (int i = 0; i < count; i++) {
+		for (int i = 0; i < count-1; i++) {
 			TabSpec tabSpec = mTabHost.newTabSpec(i + "").setIndicator(i + "");
 			mTabHost.addTab(tabSpec, fragments[i], null);
 			mTabsAdapter.addTab(mTabHost.newTabSpec(i + "")
@@ -482,8 +482,10 @@ public class MainPager extends FragmentActivity {
 		@Override
 		public void onTabChanged(String tabId) {
 			int position = mTabHost.getCurrentTab();
-			mViewPager.setCurrentItem(position);
-			((RadioButton) mTabRg.getChildAt(position)).setChecked(true);
+			if(4!=position){
+				mViewPager.setCurrentItem(position);
+				((RadioButton) mTabRg.getChildAt(position)).setChecked(true);
+			}
 		}
 
 		@Override
@@ -498,19 +500,20 @@ public class MainPager extends FragmentActivity {
 			// The jerk.
 			// This hack tries to prevent this from pulling focus out of our
 			// ViewPager.
-			TabWidget widget = mTabHost.getTabWidget();
-			int oldFocusability = widget.getDescendantFocusability();
-			widget.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
-			mlLastChangeTabTime = System.currentTimeMillis();
 			if(4==position){
 		        Intent intent = new Intent(mThis, PreferenceSetup.class);  
 				mContext.startActivity(intent);
 				mTabHost.setCurrentTab(3);
 			}
-			else				
+			else{
+				TabWidget widget = mTabHost.getTabWidget();
+				int oldFocusability = widget.getDescendantFocusability();
+				widget.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
+				mlLastChangeTabTime = System.currentTimeMillis();
 				mTabHost.setCurrentTab(position);
 			
-			widget.setDescendantFocusability(oldFocusability);
+				widget.setDescendantFocusability(oldFocusability);
+			}
 		}
 
 		@Override
