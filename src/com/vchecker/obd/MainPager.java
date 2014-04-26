@@ -14,6 +14,7 @@ import com.vchecker.obd.communication.ObdDemoData;
 import com.vchecker.obd.communication.entity.DataStreamItem;
 import com.vchecker.obd.main.*;
 
+import android.R.bool;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -26,6 +27,8 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -46,6 +49,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract.Contacts.Data;
 
 public class MainPager extends FragmentActivity {
 
@@ -56,9 +60,30 @@ public class MainPager extends FragmentActivity {
 	private final Class[] fragments = { FragmentPage_idle.class, FragmentPage_tour.class,
 			FragmentPage_race.class, FragmentPage_detail.class,FragmentPage_setup.class };
 	
-	public static final int WEEKDAYS = 7;	  
+	public static enum PageEnum {
+        IdlePage, TourPage, RacePage, DetailPage, SetupPage;
+    }
+	public static final int WEEKDAYS = 7;	 	
+	static Context mThis;	
 	
-	Context mThis;
+	static long mlLastChangeTabTime=0;
+	
+	static float mfWaterTempAlarmValue = 100;		
+	static float mfOverSpeedAlarmValue = 120;
+	static float mfFatigueDrivingAlarmValue = 120;
+	static float mfVoltAlarmValue = (float) 14.5;	
+
+	static long mlLastWaterTempAlarmTime=0;
+	static long mlLastOverSpeedAlarmTime=0;
+	static long mlLastFatigueDrivingAlarmTime=0;
+	static long mlLastVoltAlarmTime=0;
+	
+	static boolean mbWaterTempAlarm=false;
+	static boolean mbOverSpeedAlarm=false;
+	static boolean mbFatigueDrivingAlarm=false;
+	static boolean mbVoltAlarm=false;
+	
+	private SoundPool soundPool = new SoundPool(10,AudioManager.STREAM_SYSTEM,5);
 
 	//定时刷新界面数据
 	private Handler handlerUpdate = new Handler();
@@ -128,9 +153,74 @@ public class MainPager extends FragmentActivity {
 		mDemoData = new ObdDemoData(this);
 		mDemoData.fInitDemoData();
 	}	
+	
 
 	private void update(){		
 		DataStreamItem ds = mDemoData.fGetNextDataStream();
+		
+		// 当前页也不是明细，并且跟上次手动切换页面时间间隔30以上，才根据车速自动切换页面
+		if(3!=mTabHost.getCurrentTab()){
+			if(((System.currentTimeMillis()-mlLastChangeTabTime)>30*1000)){
+				if(ds.getDataItemF("x00000D00")>0){
+					if(0==mTabHost.getCurrentTab()){
+						mTabHost.setCurrentTab(1);
+					}			
+				}
+				if(ds.getDataItemF("x00000D00")==0){
+					if(1==mTabHost.getCurrentTab()||2==mTabHost.getCurrentTab()){
+						mTabHost.setCurrentTab(0);
+					}			
+				}
+			}		
+		}				
+				
+		// 每过一分钟提醒一次水温报警
+		if(ds.getDataItemF("x00000500")>mfWaterTempAlarmValue){			
+			if(!mbWaterTempAlarm){
+				mbWaterTempAlarm = true; 
+				mlLastWaterTempAlarmTime = System.currentTimeMillis();
+				
+				soundPool.load(this,R.raw.coolant,1);
+				//第一个参数为id，id即为放入到soundPool中的顺序，比如现在collide.wav是第一个，因此它的id就是1。第二个和第三个参数为左右声道的音量控制。
+				//第四个参数为优先级，由于只有这一个声音，因此优先级在这里并不重要。第五个参数为是否循环播放，0为不循环，-1为循环。最后一个参数为播放比率，从0.5到2，一般为1，表示正常播放。
+				soundPool.play(1,1, 1, 0, 0, 1);
+				Toast.makeText(mThis, "车辆水温过高", Toast.LENGTH_LONG).show();
+			}
+		}
+		else
+			mbWaterTempAlarm = false;
+		
+		// 每过一分钟提醒一次超速报警
+		if(ds.getDataItemF("x00000D00")>mfOverSpeedAlarmValue){				
+			if(!mbOverSpeedAlarm){
+				mbOverSpeedAlarm = true;
+				mlLastOverSpeedAlarmTime = System.currentTimeMillis();
+				
+				soundPool.load(this,R.raw.speed,1);
+				//第一个参数为id，id即为放入到soundPool中的顺序，比如现在collide.wav是第一个，因此它的id就是1。第二个和第三个参数为左右声道的音量控制。
+				//第四个参数为优先级，由于只有这一个声音，因此优先级在这里并不重要。第五个参数为是否循环播放，0为不循环，-1为循环。最后一个参数为播放比率，从0.5到2，一般为1，表示正常播放。
+				soundPool.play(1,1, 1, 0, 0, 1);
+				Toast.makeText(mThis, "请勿超速行驶", Toast.LENGTH_LONG).show();
+			}
+		}
+		else
+			mbOverSpeedAlarm = false;
+//		
+//		// 每过一分钟提醒一次电瓶电压报警
+//		if(ds.getDataItemF("xFF01000B")>mfVoltAlarmValue){			
+//			if(mbVoltAlarm && ((System.currentTimeMillis()-mlLastVoltAlarmTime)>60*1000)){				
+//				soundPool.load(this,R.raw.coolant,1);
+//				//第一个参数为id，id即为放入到soundPool中的顺序，比如现在collide.wav是第一个，因此它的id就是1。第二个和第三个参数为左右声道的音量控制。
+//				//第四个参数为优先级，由于只有这一个声音，因此优先级在这里并不重要。第五个参数为是否循环播放，0为不循环，-1为循环。最后一个参数为播放比率，从0.5到2，一般为1，表示正常播放。
+//				soundPool.play(1,1, 1, 0, 0, 1);
+//				Toast.makeText(mThis, "请勿超速行驶", Toast.LENGTH_LONG).show();
+//				mlLastVoltAlarmTime = System.currentTimeMillis();
+//			}
+//			mbVoltAlarm = true;
+//		}
+//		else
+//			mbVoltAlarm = false;
+		
 		TextView tv;
 		switch(mTabHost.getCurrentTab()){
 		case 0:{//怠速 {"x00020001","xFF010005","xFF010002","x00000C00","xFF01000B","x00000F00"};			
@@ -232,14 +322,14 @@ public class MainPager extends FragmentActivity {
 		}
 		break;
 		case 4:{	//设置
-			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mThis); 
-		    //根据preferences 的key获取entity value，并给出缺省值。由于应用第一次运行时，没有保存的preference文件，如果不使用缺省值，则返回null。
-			//在这里，我们直接指定缺省值为“1”，这只是为了例子简单的便捷方式。实际上，我们应该在res/values/下设置我们的缺省值，
-			//除了可在preference的xml中引用，还可以直接在此设定缺省值。同一个值不要在多处进行赋值是编程的基本原则之一。  
-		    String option = prefs.getString("AlarmWaterTemp", "100"); 
-		    //通过entity value获取entity的内容  
-//		    String[] optionText = getResources().getStringArray(R.array.flight_sort_options); 
-//		    showInfo("option = " + option + ",select : " + optionText[Integer.parseInt(option)]);
+//			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mThis); 
+//		    //根据preferences 的key获取entity value，并给出缺省值。由于应用第一次运行时，没有保存的preference文件，如果不使用缺省值，则返回null。
+//			//在这里，我们直接指定缺省值为“1”，这只是为了例子简单的便捷方式。实际上，我们应该在res/values/下设置我们的缺省值，
+//			//除了可在preference的xml中引用，还可以直接在此设定缺省值。同一个值不要在多处进行赋值是编程的基本原则之一。  
+//		    String option = prefs.getString("AlarmWaterTemp", "100"); 
+//		    //通过entity value获取entity的内容  
+////		    String[] optionText = getResources().getStringArray(R.array.flight_sort_options); 
+////		    showInfo("option = " + option + ",select : " + optionText[Integer.parseInt(option)]);
 		}
 		break;		
 			
@@ -272,6 +362,9 @@ public class MainPager extends FragmentActivity {
 
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
+						
+				mlLastChangeTabTime = System.currentTimeMillis();
+				
 				switch (checkedId) {
 				case R.id.tab_rb_1:
 					mTabHost.setCurrentTab(0);
@@ -288,6 +381,7 @@ public class MainPager extends FragmentActivity {
 				case R.id.tab_rb_5:{
 			        Intent intent = new Intent(mThis, PreferenceSetup.class);  
 			        startActivity(intent);  
+					mTabHost.setCurrentTab(3);
 				}
 				break;
 				default:
@@ -407,7 +501,15 @@ public class MainPager extends FragmentActivity {
 			TabWidget widget = mTabHost.getTabWidget();
 			int oldFocusability = widget.getDescendantFocusability();
 			widget.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
-			mTabHost.setCurrentTab(position);
+			mlLastChangeTabTime = System.currentTimeMillis();
+			if(4==position){
+		        Intent intent = new Intent(mThis, PreferenceSetup.class);  
+				mContext.startActivity(intent);
+				mTabHost.setCurrentTab(3);
+			}
+			else				
+				mTabHost.setCurrentTab(position);
+			
 			widget.setDescendantFocusability(oldFocusability);
 		}
 

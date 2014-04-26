@@ -11,7 +11,7 @@
 		<ListPreference   
 		     android:key="AlarmWaterTemp"   
 		     android:title="水温报警"	
-		     android:summary="当前车辆水箱温度超过设置值，报警提醒"  
+		     android:summary="当前车辆水箱温度超过设定值，报警提醒"  
 		     android:dialogTitle="报警值(℃)"   
 		     android:defaultValue="100"
 		     android:entries="@array/WaterTempAlarmValue"   
@@ -21,7 +21,7 @@
 		<ListPreference   
 		     android:key="AlarmOverSpeed"   
 		     android:title="超速报警"   
-		     android:summary="当前车辆行驶速度超过设置值，报警提醒"  
+		     android:summary="当前车辆行驶速度超过设定值，报警提醒"  
 		     android:defaultValue="120"
 		     android:dialogTitle="报警值（Km/h）"   
 		     android:entries="@array/OverSPeedAlarmValue"   
@@ -31,7 +31,7 @@
 		<ListPreference   
 		     android:key="AlarmFatigueDriving"   
 		     android:title="疲劳驾驶报警"   
-		     android:summary="当前连续行驶时间超过设置值，报警提醒"  
+		     android:summary="当前连续行驶时间超过设定值，报警提醒"  
 		     android:defaultValue="120"
 		     android:dialogTitle="报警值（分钟）"   
 		     android:entries="@array/FaitugeDrvingAlarmValue"   
@@ -41,11 +41,19 @@
 		<ListPreference   
 		     android:key="AlarmVlotMin"   
 		     android:title="电瓶电压报警"   
-		     android:summary="当前车辆电瓶电压超过设置值，报警提醒"  
+		     android:summary="当前车辆电瓶电压超过设定值，报警提醒"  
 		     android:dialogTitle="报警值（V）"   
 		     android:defaultValue="15.5"
 		     android:entries="@array/VoltAlarmValue"   
 		     android:entryValues="@array/VoltAlarmValue">  
 		</ListPreference>  	
+    </PreferenceCategory>
+    <PreferenceCategory android:title="版本信息" >  
+        <PreferenceScreen
+		     android:key="Version"   
+		     android:title="OBD行车电脑 "   
+		     android:summary="V1.0"  
+            
+            ></PreferenceScreen>
     </PreferenceCategory>
 </PreferenceScreen>
