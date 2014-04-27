@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory android:title="报警设置" >  
+		<CheckBoxPreference   
+		    android:key="TourbleCode"   
+		    android:title="故障报警"   
+		    android:summary="当前车辆出现故障是自动报警，建议开启该功能"  
+		    android:defaultValue="true" >  
+		 </CheckBoxPreference>  	    
+		 
+		<ListPreference   
+		     android:key="AlarmWaterTemp"   
+		     android:title="水温报警"	
+		     android:summary="当前车辆水箱温度超过设定值，报警提醒"  
+		     android:dialogTitle="报警值(℃)"   
+		     android:defaultValue="100"
+		     android:entries="@array/WaterTempAlarmValue"   
+		     android:entryValues="@array/WaterTempAlarmValue">  
+		</ListPreference>  
+		
+		<ListPreference   
+		     android:key="AlarmOverSpeed"   
+		     android:title="超速报警"   
+		     android:summary="当前车辆行驶速度超过设定值，报警提醒"  
+		     android:defaultValue="120"
+		     android:dialogTitle="报警值（Km/h）"   
+		     android:entries="@array/OverSPeedAlarmValue"   
+		     android:entryValues="@array/OverSPeedAlarmValue">  
+		</ListPreference>  
+		
+		<ListPreference   
+		     android:key="AlarmFatigueDriving"   
+		     android:title="疲劳驾驶报警"   
+		     android:summary="当前连续行驶时间超过设定值，报警提醒"  
+		     android:defaultValue="120"
+		     android:dialogTitle="报警值（分钟）"   
+		     android:entries="@array/FaitugeDrvingAlarmValue"   
+		     android:entryValues="@array/FaitugeDrvingAlarmValue">  
+		</ListPreference>  
+		
+		<ListPreference   
+		     android:key="AlarmVlotMin"   
+		     android:title="电瓶电压报警"   
+		     android:summary="当前车辆电瓶电压超过设定值，报警提醒"  
+		     android:dialogTitle="报警值（V）"   
+		     android:defaultValue="15.5"
+		     android:entries="@array/VoltAlarmValue"   
+		     android:entryValues="@array/VoltAlarmValue">  
+		</ListPreference>  	
+    </PreferenceCategory>
+    <PreferenceCategory android:title="版本信息" >  
+        <PreferenceScreen
+		     android:key="Version"   
+		     android:title="OBD行车电脑 "   
+		     android:summary="V1.0"  
+            
+            ></PreferenceScreen>
+    </PreferenceCategory>
+</PreferenceScreen>

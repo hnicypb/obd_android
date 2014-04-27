@@ -14,7 +14,7 @@
 		android:layout_alignParentLeft="true"
         android:src="@drawable/data_normal" />
      	<TextView
-	        android:id="@+id/tvLeftUpValue"
+	        android:id="@+id/tvIdleLeftUpValue"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignLeft="@+id/imageViewLeftUp"
@@ -59,7 +59,7 @@
 		android:layout_marginTop="8dip" 
         android:src="@drawable/data_normal" />  
      	<TextView
-	        android:id="@+id/tvLeftCenterValue"
+	        android:id="@+id/tvIdleLeftCenterValue"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignLeft="@+id/imageViewLeftCenter"
@@ -104,7 +104,7 @@
 		android:layout_marginTop="8dip" 
         android:src="@drawable/data_normal" />
      	<TextView
-	        android:id="@+id/tvLeftDownValue"
+	        android:id="@+id/tvIdleLeftDownValue"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignLeft="@+id/imageViewLeftDown"
@@ -154,7 +154,8 @@
 	        android:layout_alignTop="@+id/imageViewWaterTemp"
 	        android:layout_alignBottom="@+id/imageViewWaterTemp"
 	        android:gravity="center"   
-	        android:textSize="120dp"
+	        android:textSize="100dp"
+	        android:textStyle="bold"
 	        android:textColor="@color/black"
 	        android:text="80" />     	
 
@@ -166,9 +167,10 @@
 	        android:layout_alignRight="@+id/imageViewWaterTemp"
 	        android:layout_alignTop="@+id/imageViewWaterTemp"
 	        android:layout_alignBottom="@+id/imageViewWaterTemp"
-			android:layout_marginTop="130dip" 
+			android:layout_marginTop="110dip" 
 	        android:gravity="center"   
 	        android:textSize="20dp"
+	        android:textStyle="bold"
 	        android:textColor="@color/black"
 	        android:text="水温" />
         
@@ -182,7 +184,7 @@
 		android:layout_marginRight="20dip"
         android:src="@drawable/data_normal" />
      	<TextView
-	        android:id="@+id/tvRightUpValue"
+	        android:id="@+id/tvIdleRightUpValue"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignLeft="@+id/imageViewRightUp"
@@ -227,7 +229,7 @@
 		android:layout_marginTop="8dip" 
         android:src="@drawable/data_normal" />  
      	<TextView
-	        android:id="@+id/tvRightCenterValue"
+	        android:id="@+id/tvIdleRightCenterValue"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignLeft="@+id/imageViewRightCenter"
@@ -272,7 +274,7 @@
 		android:layout_marginTop="8dip" 
         android:src="@drawable/data_normal" />
      	<TextView
-	        android:id="@+id/tvRightDownValue"
+	        android:id="@+id/tvIdleRightDownValue"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignLeft="@+id/imageViewRightDown"
@@ -356,7 +358,7 @@
 	        android:layout_marginTop="-5dip"     
 	        android:layout_marginBottom="5dip"
 	        android:gravity="center"   
-	        android:textSize="25dp"
+	        android:textSize="20dp"
 	        android:textColor="@color/white"
 	        android:text="17:11" />
     <!-- 日期 时间 -->

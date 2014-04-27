@@ -1,8 +1,282 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" 
-   	android:scaleType="fitXY"
-    android:background="@drawable/back" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back"
+    android:scaleType="fitXY" >
+    
+	<ImageView
+        android:id="@+id/imageViewLineH0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:layout_marginTop="25dip" 
+		android:layout_alignParentLeft="true"
+        android:src="@drawable/line_h" 
+        android:visibility="invisible"/>     	
+        
+	<ImageView
+        android:id="@+id/imageViewLineH1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:layout_marginTop="45dip" 
+		android:layout_alignTop="@+id/imageViewLineH0"
+        android:src="@drawable/line_h" />     	
+	<ImageView
+        android:id="@+id/imageViewLineH2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:layout_marginTop="45dip" 
+		android:layout_alignTop="@+id/imageViewLineH1"
+        android:src="@drawable/line_h" />
+	<ImageView
+        android:id="@+id/imageViewLineH3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:layout_marginTop="45dip" 
+		android:layout_alignTop="@+id/imageViewLineH2"
+        android:src="@drawable/line_h" />
+	<ImageView
+        android:id="@+id/imageViewLineH4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:layout_marginTop="45dip" 
+		android:layout_alignTop="@+id/imageViewLineH3"
+        android:src="@drawable/line_h" />
+	<ImageView
+        android:id="@+id/imageViewLineV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/line_v" />    
+         
 
-</LinearLayout>
+	<TextView
+        android:id="@+id/tvLeft1Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageViewLineH0"
+		android:layout_marginLeft="15dip" 
+		android:layout_marginTop="5dip" 
+        android:textSize="17dp"
+        android:textColor="@color/white"
+        android:text="本次行车里程(Km)" />
+    <TextView
+        android:id="@+id/tvLeft2Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageViewLineH1"
+		android:layout_marginLeft="15dip" 
+		android:layout_marginTop="5dip" 
+        android:textSize="17dp"
+        android:textColor="@color/white"
+        android:text="本次平均油耗(L/100Km)" />
+    <TextView
+        android:id="@+id/tvLeft3Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageViewLineH2"
+		android:layout_marginLeft="15dip" 
+		android:layout_marginTop="5dip" 
+        android:textSize="17dp"
+        android:textColor="@color/white"
+        android:text="本次油耗量(L)" />
+    <TextView
+        android:id="@+id/tvLeft4Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageViewLineH3"
+		android:layout_marginLeft="15dip" 
+		android:layout_marginTop="5dip" 
+        android:textSize="17dp"
+        android:textColor="@color/white"
+        android:text="本次行车花费(元)" />     	
+    <TextView
+        android:id="@+id/tvLeft5Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageViewLineH4"
+		android:layout_marginLeft="15dip" 
+		android:layout_marginTop="5dip" 
+        android:textSize="17dp"
+        android:textColor="@color/white"
+        android:text="本次每公里花费(元)" />
+    	
+
+    <TextView
+        android:id="@+id/tvRight1Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"	        
+        android:layout_alignLeft="@+id/imageViewLineV"
+        android:layout_below="@+id/imageViewLineH0"
+		android:layout_marginLeft="15dip" 
+		android:layout_marginTop="5dip" 
+        android:textSize="17dp"
+        android:textColor="@color/white"
+        android:text="总里程(Km)" />
+    <TextView
+        android:id="@+id/tvRight2Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"	        
+        android:layout_alignLeft="@+id/imageViewLineV"
+        android:layout_below="@+id/imageViewLineH1"
+		android:layout_marginLeft="15dip" 
+		android:layout_marginTop="5dip" 
+        android:textSize="17dp"
+        android:textColor="@color/white"
+        android:text="历史平均油耗(L/100Km)" />
+    <TextView
+        android:id="@+id/tvRight3Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"	        
+        android:layout_alignLeft="@+id/imageViewLineV"
+        android:layout_below="@+id/imageViewLineH2"
+		android:layout_marginLeft="15dip" 
+		android:layout_marginTop="5dip" 
+        android:textSize="17dp"
+        android:textColor="@color/white"
+        android:text="历史耗油量(L)" />
+    <TextView
+        android:id="@+id/tvRight4Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"	        
+        android:layout_alignLeft="@+id/imageViewLineV"
+        android:layout_below="@+id/imageViewLineH3"
+		android:layout_marginLeft="15dip" 
+		android:layout_marginTop="5dip" 
+        android:textSize="17dp"
+        android:textColor="@color/white"
+        android:text="总行车油费(元)" />
+    <TextView
+        android:id="@+id/tvRight5Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"	        
+        android:layout_alignLeft="@+id/imageViewLineV"
+        android:layout_below="@+id/imageViewLineH4"
+		android:layout_marginLeft="15dip" 
+		android:layout_marginTop="5dip" 
+        android:textSize="17dp"
+        android:textColor="@color/white"
+        android:text="累计每公里花费(元)" />
+    
+     <TextView
+        android:id="@+id/tvDetailLeft1Value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"	        
+        android:layout_toLeftOf="@+id/imageViewLineV"
+        android:layout_below="@+id/imageViewLineH0"
+		android:layout_marginLeft="15dip" 
+		android:layout_marginTop="5dip" 
+        android:textSize="17dp"
+	    android:gravity="right"   
+        android:textColor="@color/white"
+        android:text="1" />
+     <TextView
+        android:id="@+id/tvDetailLeft2Value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"	        
+        android:layout_toLeftOf="@+id/imageViewLineV"
+        android:layout_below="@+id/imageViewLineH1"
+		android:layout_marginLeft="15dip" 
+		android:layout_marginTop="5dip" 
+        android:textSize="17dp"
+	    android:gravity="right"   
+        android:textColor="@color/white"
+        android:text="2" />
+     <TextView
+        android:id="@+id/tvDetailLeft3Value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"	        
+        android:layout_toLeftOf="@+id/imageViewLineV"
+        android:layout_below="@+id/imageViewLineH2"
+		android:layout_marginLeft="15dip" 
+		android:layout_marginTop="5dip" 
+        android:textSize="17dp"
+	    android:gravity="right"   
+        android:textColor="@color/white"
+        android:text="3" />
+     <TextView
+        android:id="@+id/tvDetailLeft4Value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"	        
+        android:layout_toLeftOf="@+id/imageViewLineV"
+        android:layout_below="@+id/imageViewLineH3"
+		android:layout_marginLeft="15dip" 
+		android:layout_marginTop="5dip" 
+        android:textSize="17dp"
+	    android:gravity="right"   
+        android:textColor="@color/white"
+        android:text="4" />
+     <TextView
+        android:id="@+id/tvDetailLeft5Value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"	        
+        android:layout_toLeftOf="@+id/imageViewLineV"
+        android:layout_below="@+id/imageViewLineH4"
+		android:layout_marginLeft="15dip" 
+		android:layout_marginTop="5dip" 
+        android:textSize="17dp"
+	    android:gravity="right"   
+        android:textColor="@color/white"
+        android:text="5" />
+    
+     <TextView
+        android:id="@+id/tvDetailRight1Value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"	        
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/imageViewLineH0"
+		android:layout_marginRight="15dip" 
+		android:layout_marginTop="5dip" 
+	    android:gravity="right"   
+        android:textSize="17dp"
+        android:textColor="@color/white"
+        android:text="1" />
+     <TextView
+        android:id="@+id/tvDetailRight2Value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"	        
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/imageViewLineH1"
+		android:layout_marginRight="15dip" 
+		android:layout_marginTop="5dip" 
+	    android:gravity="right"   
+        android:textSize="17dp"
+        android:textColor="@color/white"
+        android:text="2" />
+     <TextView
+        android:id="@+id/tvDetailRight3Value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"	        
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/imageViewLineH2"
+		android:layout_marginRight="15dip" 
+		android:layout_marginTop="5dip" 
+	    android:gravity="right"   
+        android:textSize="17dp"
+        android:textColor="@color/white"
+        android:text="3.8" />
+     <TextView
+        android:id="@+id/tvDetailRight4Value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"	        
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/imageViewLineH3"
+		android:layout_marginRight="15dip" 
+		android:layout_marginTop="5dip" 
+	    android:gravity="right"   
+        android:textSize="17dp"
+        android:textColor="@color/white"
+        android:text="42" />
+     <TextView
+        android:id="@+id/tvDetailRight5Value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"	        
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/imageViewLineH4"
+		android:layout_marginRight="15dip" 
+		android:layout_marginTop="5dip" 
+	    android:gravity="right"   
+        android:textSize="17dp"
+        android:textColor="@color/white"
+        android:text="511" />
+</RelativeLayout>

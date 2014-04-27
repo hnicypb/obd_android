@@ -13,7 +13,7 @@
 		android:layout_alignParentLeft="true"
         android:src="@drawable/data_normal" />
      	<TextView
-	        android:id="@+id/tvLeftUpValue"
+	        android:id="@+id/tvTourLeftUpValue"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignLeft="@+id/imageViewLeftUp"
@@ -49,7 +49,7 @@
 		android:layout_marginTop="15dip" 
         android:src="@drawable/data_normal" />  
      	<TextView
-	        android:id="@+id/tvLeftCenterValue"
+	        android:id="@+id/tvTourLeftCenterValue"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignLeft="@+id/imageViewLeftCenter"
@@ -92,7 +92,7 @@
 		android:layout_marginTop="15dip" 
         android:src="@drawable/data_normal" />
      	<TextView
-	        android:id="@+id/tvLeftDownValue"
+	        android:id="@+id/tvTourLeftDownValue"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignLeft="@+id/imageViewLeftDown"
@@ -159,7 +159,7 @@
 		android:layout_marginRight="20dip"
         android:src="@drawable/data_normal" />
      	<TextView
-	        android:id="@+id/tvRightUpValue"
+	        android:id="@+id/tvTourRightUpValue"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignLeft="@+id/imageViewRightUp"
@@ -202,7 +202,7 @@
 		android:layout_marginTop="15dip" 
         android:src="@drawable/data_normal" />  
      	<TextView
-	        android:id="@+id/tvRightCenterValue"
+	        android:id="@+id/tvTourRightCenterValue"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignLeft="@+id/imageViewRightCenter"
@@ -246,7 +246,7 @@
 		android:layout_marginTop="15dip" 
         android:src="@drawable/data_normal" />
      	<TextView
-	        android:id="@+id/tvRightDownValue"
+	        android:id="@+id/tvTourRightDownValue"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignLeft="@+id/imageViewRightDown"

@@ -13,7 +13,7 @@
 		android:layout_alignParentLeft="true"
         android:src="@drawable/data_big" />
      	<TextView
-	        android:id="@+id/tvLefuUpValue"
+	        android:id="@+id/tvRaceLeftUpValue"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignLeft="@+id/imageViewLefUp"
@@ -49,7 +49,7 @@
 		android:layout_marginLeft="10dip"		
         android:src="@drawable/data_normal" />
      	<TextView
-	        android:id="@+id/tvLeftDownValue"
+	        android:id="@+id/tvRaceLeftDownValue"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignLeft="@+id/imageViewLeftDown"
@@ -92,7 +92,7 @@
         android:layout_marginTop="20dip"
         android:src="@drawable/data_normal" />          
      	<TextView
-	        android:id="@+id/tvCenterUpValue"
+	        android:id="@+id/tvRaceCenterUpValue"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignLeft="@+id/imageViewCenterUp"
@@ -134,7 +134,7 @@
         android:layout_marginTop="15dip"
         android:src="@drawable/data_normal" />
      	<TextView
-	        android:id="@+id/tvCenterCenterValue"
+	        android:id="@+id/tvRaceCenterCenterValue"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignLeft="@+id/imageViewCenterCenter"
@@ -176,7 +176,7 @@
         android:layout_marginTop="18dip"
         android:src="@drawable/data_normal" />
      	<TextView
-	        android:id="@+id/tvCenterDownValue"
+	        android:id="@+id/tvRaceCenterDownValue"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignLeft="@+id/imageViewCenterDown"
@@ -219,7 +219,7 @@
 		android:layout_alignParentRight="true"
         android:src="@drawable/data_big" />
      	<TextView
-	        android:id="@+id/tvRightUpValue"
+	        android:id="@+id/tvRaceRightUpValue"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignLeft="@+id/imageViewRightUp"
@@ -254,7 +254,7 @@
 		android:layout_marginRight="10dip"		
         android:src="@drawable/data_normal" />
      	<TextView
-	        android:id="@+id/tvRightDownValue"
+	        android:id="@+id/tvRaceRightDownValue"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignLeft="@+id/imageViewRightDown"
