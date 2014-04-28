@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.TimeZone;
 
 import com.vchecker.obd.R;
@@ -67,6 +68,7 @@ public class MainPager extends FragmentActivity {
 	static Context mThis;	
 	
 	static long mlLastChangeTabTime=0;
+	static int miTourOrRace = 1;
 	
 	static float mfWaterTempAlarmValue = 100;		
 	static float mfOverSpeedAlarmValue = 120;
@@ -82,8 +84,10 @@ public class MainPager extends FragmentActivity {
 	static boolean mbOverSpeedAlarm=false;
 	static boolean mbFatigueDrivingAlarm=false;
 	static boolean mbVoltAlarm=false;
-	
-	private SoundPool soundPool = new SoundPool(10,AudioManager.STREAM_SYSTEM,5);
+
+	SoundPool mSoundPool = null;
+	HashMap<Integer, Integer> soundMap = new HashMap<Integer, Integer>();
+
 
 	//定时刷新界面数据
 	private Handler handlerUpdate = new Handler();
@@ -118,7 +122,8 @@ public class MainPager extends FragmentActivity {
 	public boolean onMenuItemSelected(int featureId, MenuItem item) { 
         // TODO Auto-generated method stub  
         super.onOptionsItemSelected(item);  
-        Intent intent = new Intent(this, PreferenceSetup.class);  
+       // Intent intent = new Intent(this, PreferenceSetup.class);  
+        Intent intent = new Intent(this, SettingsActivity.class);  
         startActivity(intent);  
         
 		return false;
@@ -144,6 +149,13 @@ public class MainPager extends FragmentActivity {
 		
         // 初始化演示数据
         initDemoData();
+
+        //设置最多可容纳10个音频流，音频的品质为5
+        mSoundPool = new SoundPool(10, AudioManager.STREAM_SYSTEM, 5);
+        //load方法加载指定音频文件，并返回所加载的音频ID。此处使用HashMap来管理这些音频流
+        soundMap.put(1 , mSoundPool.load(this, R.raw.coolant , 1));
+        soundMap.put(2 , mSoundPool.load(this, R.raw.speed , 1));
+        soundMap.put(3 , mSoundPool.load(this, R.raw.trouble , 1));
 	}
 
 	/**
@@ -163,7 +175,7 @@ public class MainPager extends FragmentActivity {
 			if(((System.currentTimeMillis()-mlLastChangeTabTime)>30*1000)){
 				if(ds.getDataItemF("x00000D00")>0){
 					if(0==mTabHost.getCurrentTab()){
-						mTabHost.setCurrentTab(1);
+						mTabHost.setCurrentTab(miTourOrRace);
 					}			
 				}
 				if(ds.getDataItemF("x00000D00")==0){
@@ -172,18 +184,15 @@ public class MainPager extends FragmentActivity {
 					}			
 				}
 			}		
-		}				
+		}					
 				
 		// 每过一分钟提醒一次水温报警
 		if(ds.getDataItemF("x00000500")>mfWaterTempAlarmValue){			
 			if(!mbWaterTempAlarm){
 				mbWaterTempAlarm = true; 
 				mlLastWaterTempAlarmTime = System.currentTimeMillis();
-				
-				soundPool.load(this,R.raw.coolant,1);
-				//第一个参数为id，id即为放入到soundPool中的顺序，比如现在collide.wav是第一个，因此它的id就是1。第二个和第三个参数为左右声道的音量控制。
-				//第四个参数为优先级，由于只有这一个声音，因此优先级在这里并不重要。第五个参数为是否循环播放，0为不循环，-1为循环。最后一个参数为播放比率，从0.5到2，一般为1，表示正常播放。
-				soundPool.play(1,1, 1, 0, 0, 1);
+
+				 mSoundPool.play(soundMap.get(1), 1, 1, 0, 0, 1);
 				Toast.makeText(mThis, "车辆水温过高", Toast.LENGTH_LONG).show();
 			}
 		}
@@ -195,11 +204,8 @@ public class MainPager extends FragmentActivity {
 			if(!mbOverSpeedAlarm){
 				mbOverSpeedAlarm = true;
 				mlLastOverSpeedAlarmTime = System.currentTimeMillis();
-				
-				soundPool.load(this,R.raw.speed,1);
-				//第一个参数为id，id即为放入到soundPool中的顺序，比如现在collide.wav是第一个，因此它的id就是1。第二个和第三个参数为左右声道的音量控制。
-				//第四个参数为优先级，由于只有这一个声音，因此优先级在这里并不重要。第五个参数为是否循环播放，0为不循环，-1为循环。最后一个参数为播放比率，从0.5到2，一般为1，表示正常播放。
-				soundPool.play(1,1, 1, 0, 0, 1);
+
+				 mSoundPool.play(soundMap.get(2), 1, 1, 0, 0, 1);
 				Toast.makeText(mThis, "请勿超速行驶", Toast.LENGTH_LONG).show();
 			}
 		}
@@ -364,16 +370,18 @@ public class MainPager extends FragmentActivity {
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 						
 				mlLastChangeTabTime = System.currentTimeMillis();
-				
+				int iCurrentTab = mTabHost.getCurrentTab();
 				switch (checkedId) {
 				case R.id.tab_rb_1:
 					mTabHost.setCurrentTab(0);
 					break;
 				case R.id.tab_rb_2:
 					mTabHost.setCurrentTab(1);
+					miTourOrRace = 1;
 					break;
 				case R.id.tab_rb_3:
 					mTabHost.setCurrentTab(2);
+					miTourOrRace = 2;
 					break;
 				case R.id.tab_rb_4:
 					mTabHost.setCurrentTab(3);
@@ -381,7 +389,7 @@ public class MainPager extends FragmentActivity {
 				case R.id.tab_rb_5:{
 			        Intent intent = new Intent(mThis, PreferenceSetup.class);  
 			        startActivity(intent);  
-					mTabHost.setCurrentTab(3);
+					mTabHost.setCurrentTab(iCurrentTab);
 				}
 				break;
 				default:
@@ -511,6 +519,9 @@ public class MainPager extends FragmentActivity {
 				widget.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
 				mlLastChangeTabTime = System.currentTimeMillis();
 				mTabHost.setCurrentTab(position);
+				
+				if(position == 1 || position ==2)
+					miTourOrRace = position;
 			
 				widget.setDescendantFocusability(oldFocusability);
 			}

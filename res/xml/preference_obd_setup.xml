@@ -12,9 +12,9 @@
 		     android:key="AlarmWaterTemp"   
 		     android:title="水温报警"	
 		     android:summary="当前车辆水箱温度超过设定值，报警提醒"  
-		     android:dialogTitle="报警值(℃)"   
+		     android:dialogTitle="水温报警值"   
 		     android:defaultValue="100"
-		     android:entries="@array/WaterTempAlarmValue"   
+		     android:entries="@array/WaterTempAlarmTitle"   
 		     android:entryValues="@array/WaterTempAlarmValue">  
 		</ListPreference>  
 		
@@ -23,8 +23,8 @@
 		     android:title="超速报警"   
 		     android:summary="当前车辆行驶速度超过设定值，报警提醒"  
 		     android:defaultValue="120"
-		     android:dialogTitle="报警值（Km/h）"   
-		     android:entries="@array/OverSPeedAlarmValue"   
+		     android:dialogTitle="超速报警值"   
+		     android:entries="@array/OverSPeedAlarmTitle"   
 		     android:entryValues="@array/OverSPeedAlarmValue">  
 		</ListPreference>  
 		
@@ -33,8 +33,8 @@
 		     android:title="疲劳驾驶报警"   
 		     android:summary="当前连续行驶时间超过设定值，报警提醒"  
 		     android:defaultValue="120"
-		     android:dialogTitle="报警值（分钟）"   
-		     android:entries="@array/FaitugeDrvingAlarmValue"   
+		     android:dialogTitle="疲劳驾驶报警值"   
+		     android:entries="@array/FaitugeDrvingAlarmTitle"   
 		     android:entryValues="@array/FaitugeDrvingAlarmValue">  
 		</ListPreference>  
 		
@@ -42,9 +42,9 @@
 		     android:key="AlarmVlotMin"   
 		     android:title="电瓶电压报警"   
 		     android:summary="当前车辆电瓶电压超过设定值，报警提醒"  
-		     android:dialogTitle="报警值（V）"   
+		     android:dialogTitle="电瓶电压报警值"   
 		     android:defaultValue="15.5"
-		     android:entries="@array/VoltAlarmValue"   
+		     android:entries="@array/VoltAlarmTitle"   
 		     android:entryValues="@array/VoltAlarmValue">  
 		</ListPreference>  	
     </PreferenceCategory>

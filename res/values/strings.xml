@@ -1,61 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">obd</string>
+    <string name="app_name">智能行车电脑</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_main_pager">智能行车电脑</string>
+    <string name="version">V1.0</string>
+
     <string-array name="Week">
-        <item >星期天</item>
-        <item >星期一</item>
-        <item >星期二</item>
-        <item >星期三</item>
-        <item >星期四</item>
-        <item >星期五</item>
-        <item >星期六</item>
-    </string-array> 
+        <item>星期天</item>
+        <item>星期一</item>
+        <item>星期二</item>
+        <item>星期三</item>
+        <item>星期四</item>
+        <item>星期五</item>
+        <item>星期六</item>
+    </string-array>
+    <string-array name="WaterTempAlarmTitle">
+        <item>80(℃)</item>
+        <item>90(℃)</item>
+        <item>100(℃)</item>
+        <item>110(℃)</item>
+        <item>120(℃)</item>
+    </string-array>
     <string-array name="WaterTempAlarmValue">
-        <item >80</item>
-        <item >90</item>
-        <item >100</item>
-        <item >110</item>
-        <item >120</item>
+        <item>80</item>
+        <item>90</item>
+        <item>100</item>
+        <item>110</item>
+        <item>120</item>
+    </string-array>
+    <string-array name="OverSPeedAlarmTitle">
+        <item>40(Km/h)</item>
+        <item>50(Km/h)</item>
+        <item>60(Km/h)</item>
+        <item>70(Km/h)</item>
+        <item>80(Km/h)</item>
+        <item>90(Km/h)</item>
+        <item>100(Km/h)</item>
+        <item>110(Km/h)</item>
+        <item>120(Km/h)</item>
+        <item>130(Km/h)</item>
+        <item>140(Km/h)</item>
+        <item>150(Km/h)</item>
+        <item>160(Km/h)</item>
+        <item>170(Km/h)</item>
+        <item>180(Km/h)</item>
+        <item>190(Km/h)</item>
+        <item>200(Km/h)</item>
     </string-array>
     <string-array name="OverSPeedAlarmValue">
-        <item >40</item>
-        <item >50</item>
-        <item >60</item>
-        <item >70</item>
-        <item >80</item>
-        <item >90</item>
-        <item >100</item>
-        <item >110</item>
-        <item >120</item>
-        <item >130</item>
-        <item >140</item>
-        <item >150</item>
-        <item >160</item>
-        <item >170</item>
-        <item >180</item>
-        <item >190</item>
-        <item >200</item>
+        <item>40</item>
+        <item>50</item>
+        <item>60</item>
+        <item>70</item>
+        <item>80</item>
+        <item>90</item>
+        <item>100</item>
+        <item>110</item>
+        <item>120</item>
+        <item>130</item>
+        <item>140</item>
+        <item>150</item>
+        <item>160</item>
+        <item>170</item>
+        <item>180</item>
+        <item>190</item>
+        <item>200</item>
+    </string-array>
+    <string-array name="FaitugeDrvingAlarmTitle">
+        <item>60(分钟)</item>
+        <item>90(分钟)</item>
+        <item>120(分钟)</item>
+        <item>150(分钟)</item>
+        <item>180(分钟)</item>
     </string-array>
     <string-array name="FaitugeDrvingAlarmValue">
-        <item >60</item>
-        <item >90</item>
-        <item >120</item>
-        <item >150</item>
-        <item >180</item>
+        <item>60</item>
+        <item>90</item>
+        <item>120</item>
+        <item>150</item>
+        <item>180</item>
+    </string-array>
+    <string-array name="VoltAlarmTitle">
+        <item>12.5(V)</item>
+        <item>13.0(V)</item>
+        <item>13.5(V)</item>
+        <item>14.0(V)</item>
+        <item>14.5(V)</item>
+        <item>15.0(V)</item>
+        <item>15.5(V)</item>
+        <item>16.0(V)</item>
     </string-array>
     <string-array name="VoltAlarmValue">
-        <item >12.5</item>
-        <item >13.0</item>
-        <item >13.5</item>
-        <item >14.0</item>
-        <item >14.5</item>
-        <item >15.0</item>
-        <item >15.5</item>
-        <item >16.0</item>
+        <item>12.5</item>
+        <item>13.0</item>
+        <item>13.5</item>
+        <item>14.0</item>
+        <item>14.5</item>
+        <item>15.0</item>
+        <item>15.5</item>
+        <item>16.0</item>
     </string-array>
-    
+
+    <string name="title_activity_splash">SplashActivity</string>
+
 </resources>
