@@ -20,9 +20,9 @@
 	        android:layout_alignTop="@+id/imageViewLeftUp"
 	        android:layout_alignRight="@+id/imageViewLeftUp"
 	        android:layout_alignBottom="@+id/imageViewLeftUp"
-	        android:layout_marginBottom="21dip"
+	        android:layout_marginBottom="@dimen/margin_value_bottom"
 	        android:gravity="center"   
-	        android:textSize="35dp"
+	        android:textSize="@dimen/font_value"
 	        android:textColor="@color/white"
 	        android:text="00:34" />
      	<TextView
@@ -33,9 +33,9 @@
 	        android:layout_alignTop="@+id/imageViewLeftUp"
 	        android:layout_alignRight="@+id/imageViewLeftUp"
 	        android:layout_alignBottom="@+id/imageViewLeftUp"
-	        android:layout_marginTop="42dip"
+	        android:layout_marginTop="45dip"
 	        android:gravity="center"    
-	        android:textSize="13dp"
+	        android:textSize="@dimen/font_text"
 	        android:textColor="@color/white"
 	        android:text="本次行驶时间" /> 
 	        
@@ -57,9 +57,9 @@
 	        android:layout_alignRight="@+id/imageViewLeftCenter"
 	        android:layout_alignBottom="@+id/imageViewLeftCenter"
 	        android:layout_marginRight="40dip"
-	        android:layout_marginBottom="21dip"
-	        android:gravity="right"   
-	        android:textSize="35dp"
+	        android:layout_marginBottom="@dimen/margin_value_bottom"
+	        android:gravity="right|bottom"   
+	        android:textSize="@dimen/font_value"
 	        android:textColor="@color/white"
 	        android:text="5.2" />
      	<TextView
@@ -70,16 +70,16 @@
 	        android:layout_alignTop="@+id/imageViewLeftCenter"
 	        android:layout_alignRight="@+id/imageViewLeftCenter"
 	        android:layout_alignBottom="@+id/imageViewLeftCenter"
-	        android:layout_marginTop="42dip"
+	        android:layout_marginTop="45dip"
 	        android:gravity="center"    
-	        android:textSize="13dp"
+	        android:textSize="@dimen/font_text"
 	        android:textColor="@color/white"
 	        android:text="本次平均油耗" /> 
 	    <ImageView
 	        android:id="@+id/imageViewUnitLeftCenter"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_alignTop="@+id/imageViewLeftCenter"
+	        android:layout_alignBottom="@+id/tvTourLeftCenterValue"
 	        android:layout_alignRight="@+id/imageViewLeftCenter"
 	        android:src="@drawable/unit_km_h_800x480" />
 	    
@@ -100,9 +100,9 @@
 	        android:layout_alignRight="@+id/imageViewLeftDown"
 	        android:layout_alignBottom="@+id/imageViewLeftDown"
 	        android:layout_marginRight="40dip"
-	        android:layout_marginBottom="21dip"
-	        android:gravity="right"   
-	        android:textSize="35dp"
+	        android:layout_marginBottom="@dimen/margin_value_bottom"
+	        android:gravity="right|bottom"   
+	        android:textSize="@dimen/font_value"
 	        android:textColor="@color/white"
 	        android:text="80" />
      	<TextView
@@ -113,16 +113,16 @@
 	        android:layout_alignTop="@+id/imageViewLeftDown"
 	        android:layout_alignRight="@+id/imageViewLeftDown"
 	        android:layout_alignBottom="@+id/imageViewLeftDown"
-	        android:layout_marginTop="42dip"
+	        android:layout_marginTop="45dip"
 	        android:gravity="center"    
-	        android:textSize="13dp"
+	        android:textSize="@dimen/font_text"
 	        android:textColor="@color/white"
 	        android:text="水温" /> 
 	    <ImageView
 	        android:id="@+id/imageViewUnitLeftDown"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_alignTop="@+id/imageViewLeftDown"
+	        android:layout_alignBottom="@+id/tvTourLeftDownValue"
 	        android:layout_alignRight="@+id/imageViewLeftDown"
 	        android:src="@drawable/unit_celsius_800x480" />
 	    
@@ -144,7 +144,7 @@
 	        android:layout_alignBottom="@+id/imageViewSpeed"
 			android:layout_marginTop="17dip" 
 	        android:gravity="center"   
-	        android:textSize="40dp"
+	        android:textSize="@dimen/font_speed"
 	        android:textStyle="bold"
 	        android:textColor="@color/white"
 	        android:text="120" />
@@ -167,9 +167,9 @@
 	        android:layout_alignRight="@+id/imageViewRightUp"
 	        android:layout_alignBottom="@+id/imageViewRightUp"
 	        android:layout_marginRight="40dip"
-	        android:layout_marginBottom="21dip"
-	        android:gravity="right"   
-	        android:textSize="35dp"
+	        android:layout_marginBottom="@dimen/margin_value_bottom"
+	        android:gravity="right|bottom"   
+	        android:textSize="@dimen/font_value"
 	        android:textColor="@color/white"
 	        android:text="29.3" />
      	<TextView
@@ -180,16 +180,16 @@
 	        android:layout_alignTop="@+id/imageViewRightUp"
 	        android:layout_alignRight="@+id/imageViewRightUp"
 	        android:layout_alignBottom="@+id/imageViewRightUp"
-	        android:layout_marginTop="42dip"
+	        android:layout_marginTop="45dip"
 	        android:gravity="center"    
-	        android:textSize="13dp"
+	        android:textSize="@dimen/font_text"
 	        android:textColor="@color/white"
 	        android:text="本次行驶里程" /> 
 	    <ImageView
 	        android:id="@+id/imageViewUnitRightUp"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_alignTop="@+id/imageViewRightUp"
+	        android:layout_alignBottom="@+id/tvTourRightUpValue"
 	        android:layout_alignRight="@+id/imageViewRightUp"
 	        android:src="@drawable/unit_km_800x480" />   
 	        
@@ -210,9 +210,9 @@
 	        android:layout_alignRight="@+id/imageViewRightCenter"
 	        android:layout_alignBottom="@+id/imageViewRightCenter"
 	        android:layout_marginRight="40dip"
-	        android:layout_marginBottom="21dip"
-	        android:gravity="right"   
-	        android:textSize="35dp"
+	        android:layout_marginBottom="@dimen/margin_value_bottom"
+	        android:gravity="right|bottom"   
+	        android:textSize="@dimen/font_value"
 	        android:textColor="@color/white"
 	        android:text="4.7" />
      	<TextView
@@ -223,16 +223,16 @@
 	        android:layout_alignTop="@+id/imageViewRightCenter"
 	        android:layout_alignRight="@+id/imageViewRightCenter"
 	        android:layout_alignBottom="@+id/imageViewRightCenter"
-	        android:layout_marginTop="42dip"
+	        android:layout_marginTop="45dip"
 	        android:gravity="center"    
-	        android:textSize="13dp"
+	        android:textSize="@dimen/font_text"
 	        android:textColor="@color/white"
-	        android:text="平均油耗(本次行驶)" /> 
+	        android:text="平均油耗(本次)" /> 
 	    <ImageView
 	        android:id="@+id/imageViewUnitRightCenter"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_alignTop="@+id/imageViewRightCenter"
+	        android:layout_alignBottom="@+id/tvTourRightCenterValue"
 	        android:layout_alignRight="@+id/imageViewRightCenter"
 	        android:src="@drawable/unit_l_100km_800x480" />
 	    
@@ -254,9 +254,9 @@
 	        android:layout_alignRight="@+id/imageViewRightDown"
 	        android:layout_alignBottom="@+id/imageViewRightDown"
 	        android:layout_marginRight="40dip"
-	        android:layout_marginBottom="21dip"
-	        android:gravity="right"   
-	        android:textSize="35dp"
+	        android:layout_marginBottom="@dimen/margin_value_bottom"
+	        android:gravity="right|bottom"   
+	        android:textSize="@dimen/font_value"
 	        android:textColor="@color/white"
 	        android:text="4.2" />
      	<TextView
@@ -267,16 +267,16 @@
 	        android:layout_alignTop="@+id/imageViewRightDown"
 	        android:layout_alignRight="@+id/imageViewRightDown"
 	        android:layout_alignBottom="@+id/imageViewRightDown"
-	        android:layout_marginTop="42dip"
+	        android:layout_marginTop="45dip"
 	        android:gravity="center"    
-	        android:textSize="13dp"
+	        android:textSize="@dimen/font_text"
 	        android:textColor="@color/white"
 	        android:text="即时油耗(动态)" /> 
 	    <ImageView
 	        android:id="@+id/imageViewUnitRightDown"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_alignTop="@+id/imageViewRightDown"
+	        android:layout_alignBottom="@+id/tvTourRightDownValue"
 	        android:layout_alignRight="@+id/imageViewRightDown"
 	        android:src="@drawable/unit_l_100km_800x480" />
      

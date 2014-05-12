@@ -23,7 +23,7 @@
         android:src="@drawable/line_h" />     	
 	<ImageView
         android:id="@+id/imageViewLineH2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
 		android:layout_marginTop="45dip" 
 		android:layout_alignTop="@+id/imageViewLineH1"
