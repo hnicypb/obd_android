@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="font_value">35dp</dimen>
+    <dimen name="font_value_big">30dp</dimen>
+    <dimen name="font_text">15dp</dimen>
+    <dimen name="font_speed">40dp</dimen>
+    <dimen name="font_water">100dp</dimen>
+    <dimen name="font_detail">100dp</dimen>
+</resources>
