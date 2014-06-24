@@ -7,20 +7,29 @@
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="19" />
-    
-    <supports-screens 
-        android:smallScreens="true"
-        android:normalScreens="true"
+
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+	<uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
+
+    <supports-screens
+        android:anyDensity="true"
         android:largeScreens="true"
-        android:xlargeScreens="true"
-        android:anyDensity="true"/>
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-	
+        <receiver android:name="com.vchecker.obd.BluetoothConnectActivityReceiver" >
+            <intent-filter>
+                <action android:name="android.bluetooth.device.action.PAIRING_REQUEST" />
+            </intent-filter>
+        </receiver>
+
         <!--
         <activity
             android:name="com.vchecker.obd.MainActivity"
@@ -31,18 +40,9 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity>
         -->
-        <activity
-            android:name="com.vchecker.obd.MainPager"
-            android:label="@string/title_activity_main_pager"
-            android:screenOrientation="landscape" >
-        </activity>
-        <activity
-            android:name="com.vchecker.obd.PreferenceSetup"
-            android:label="@string/title_activity_main_pager"
-            android:screenOrientation="landscape" >
-        </activity>
+        <!-- 启动窗口 -->
         <activity
             android:name="com.vchecker.obd.SplashActivity"
             android:label="@string/app_name"
@@ -53,9 +53,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- 主界面 -->
+        <activity
+            android:name="com.vchecker.obd.MainPager"
+            android:label="@string/title_activity_main_pager"
+            android:screenOrientation="landscape" >
+        </activity>
+        <!-- 设置窗口 -->
+        <activity
+            android:name="com.vchecker.obd.PreferenceSetup"
+            android:label="@string/title_activity_main_pager"
+            android:screenOrientation="landscape" >
+        </activity>
+        <!-- 蓝牙设置窗口 -->
         <activity
             android:name="com.vchecker.obd.SettingsActivity"
             android:label="@string/title_activity_settings" >
+        </activity>
+        <activity
+            android:name="com.vchecker.obd.Bluetooth.DeviceListActivity"
+            android:label="@string/title_activity_device_list" >
         </activity>
     </application>
 

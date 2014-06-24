@@ -1,8 +1,16 @@
 package com.vchecker.obd.communication.entity;
 
 import java.util.HashMap;
+
 import java.util.Map;
 
+/** 
+* @ClassName: DataStreamItem 
+* @Description: TODO(数据流数据类) 
+* @author Yipb
+* @date 2014年6月21日 上午10:43:43 
+*  
+*/
 public class DataStreamItem {
 	private Map<String,Float> m_mapDataItemF = new HashMap<String,Float>();
 	private Map<String,String> m_mapDataItemS = new HashMap<String,String>();

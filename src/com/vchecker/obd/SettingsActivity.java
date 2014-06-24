@@ -1,7 +1,10 @@
 package com.vchecker.obd;
 
 import android.annotation.TargetApi;
+import android.bluetooth.BluetoothDevice;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -10,14 +13,18 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import java.util.List;
+
+import com.vchecker.obd.Bluetooth.DeviceListActivity;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -37,7 +44,11 @@ public class SettingsActivity extends PreferenceActivity {
 	 * as a master/detail two-pane view on tablets. When true, a single pane is
 	 * shown on tablets.
 	 */
+    
 	private static final boolean ALWAYS_SIMPLE_PREFS = false;
+
+	private static final String TAG = "SettingsActivity";
+	private static final boolean D = true;
 
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
@@ -60,27 +71,60 @@ public class SettingsActivity extends PreferenceActivity {
 		// use the older PreferenceActivity APIs.
 
 		// Add 'general' preferences.
-		addPreferencesFromResource(R.xml.pref_general);
+		addPreferencesFromResource(R.xml.preference_obd_setup);
+		
+		SettingsActivity.this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); 		// 变为竖屏显示
+		//SettingsActivity.this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); // 变为横屏显示
 
-		// Add 'notifications' preferences, and a corresponding header.
-		PreferenceCategory fakeHeader = new PreferenceCategory(this);
-		fakeHeader.setTitle(R.string.pref_header_notifications);
-		getPreferenceScreen().addPreference(fakeHeader);
-		addPreferencesFromResource(R.xml.pref_notification);
+//		// Add 'notifications' preferences, and a corresponding header.
+//		PreferenceCategory fakeHeader = new PreferenceCategory(this);
+//		fakeHeader.setTitle(R.string.pref_header_notifications);
+//		getPreferenceScreen().addPreference(fakeHeader);
+//		addPreferencesFromResource(R.xml.pref_notification);
+//
+//		// Add 'data and sync' preferences, and a corresponding header.
+//		fakeHeader = new PreferenceCategory(this);
+//		fakeHeader.setTitle(R.string.pref_header_data_sync);
+//		getPreferenceScreen().addPreference(fakeHeader);
+//		addPreferencesFromResource(R.xml.pref_data_sync);
+//
+//		// Bind the summaries of EditText/List/Dialog/Ringtone preferences to
+//		// their values. When their values change, their summaries are updated
+//		// to reflect the new value, per the Android Design guidelines.
+		
+		bindPreferenceSummaryToValue(findPreference("AlarmWaterTemp"));
+		bindPreferenceSummaryToValue(findPreference("AlarmOverSpeed"));
+		bindPreferenceSummaryToValue(findPreference("AlarmFatigueDriving"));
+		bindPreferenceSummaryToValue(findPreference("AlarmVlotMin"));
+		
+		findPreference("Bluetooth").setOnPreferenceClickListener(new OnPreferenceClickListener() {
+			
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				// TODO Auto-generated method stub
+//				//打开蓝牙设置new Intent("android.bluetooth.devicepicker.action.LAUNCH");
+//				Intent intent2 = new Intent(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS);
+//				startActivityForResult(intent2, 0);;
 
-		// Add 'data and sync' preferences, and a corresponding header.
-		fakeHeader = new PreferenceCategory(this);
-		fakeHeader.setTitle(R.string.pref_header_data_sync);
-		getPreferenceScreen().addPreference(fakeHeader);
-		addPreferencesFromResource(R.xml.pref_data_sync);
-
-		// Bind the summaries of EditText/List/Dialog/Ringtone preferences to
-		// their values. When their values change, their summaries are updated
-		// to reflect the new value, per the Android Design guidelines.
-		bindPreferenceSummaryToValue(findPreference("example_text"));
-		bindPreferenceSummaryToValue(findPreference("example_list"));
-		bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"));
-		bindPreferenceSummaryToValue(findPreference("sync_frequency"));
+		        Intent intent = new Intent(SettingsActivity.this, DeviceListActivity.class);  
+		        startActivityForResult(intent, 0);  
+		        
+				return true;
+			}
+		});		
+	}
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (resultCode) { 
+		case RESULT_OK:
+		    Bundle b=data.getExtras(); //data为B中回传的Intent
+		    findPreference("Bluetooth").setSummary(b.getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS));
+		break;
+		default:		          
+			break;
+		}
 	}
 
 	/** {@inheritDoc} */
@@ -110,15 +154,6 @@ public class SettingsActivity extends PreferenceActivity {
 				|| !isXLargeTablet(context);
 	}
 
-	/** {@inheritDoc} */
-	@Override
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	public void onBuildHeaders(List<Header> target) {
-		if (!isSimplePreferences(this)) {
-			loadHeadersFromResource(R.xml.pref_headers, target);
-		}
-	}
-
 	/**
 	 * A preference value change listener that updates the preference's summary
 	 * to reflect its new value.
@@ -144,7 +179,7 @@ public class SettingsActivity extends PreferenceActivity {
 				// using RingtoneManager.
 				if (TextUtils.isEmpty(stringValue)) {
 					// Empty values correspond to 'silent' (no ringtone).
-					preference.setSummary(R.string.pref_ringtone_silent);
+//					preference.setSummary(R.string.pref_ringtone_silent);
 
 				} else {
 					Ringtone ringtone = RingtoneManager.getRingtone(
@@ -194,62 +229,5 @@ public class SettingsActivity extends PreferenceActivity {
 						""));
 	}
 
-	/**
-	 * This fragment shows general preferences only. It is used when the
-	 * activity is showing a two-pane settings UI.
-	 */
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	public static class GeneralPreferenceFragment extends PreferenceFragment {
-		@Override
-		public void onCreate(Bundle savedInstanceState) {
-			super.onCreate(savedInstanceState);
-			addPreferencesFromResource(R.xml.pref_general);
 
-			// Bind the summaries of EditText/List/Dialog/Ringtone preferences
-			// to their values. When their values change, their summaries are
-			// updated to reflect the new value, per the Android Design
-			// guidelines.
-			bindPreferenceSummaryToValue(findPreference("example_text"));
-			bindPreferenceSummaryToValue(findPreference("example_list"));
-		}
-	}
-
-	/**
-	 * This fragment shows notification preferences only. It is used when the
-	 * activity is showing a two-pane settings UI.
-	 */
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	public static class NotificationPreferenceFragment extends
-			PreferenceFragment {
-		@Override
-		public void onCreate(Bundle savedInstanceState) {
-			super.onCreate(savedInstanceState);
-			addPreferencesFromResource(R.xml.pref_notification);
-
-			// Bind the summaries of EditText/List/Dialog/Ringtone preferences
-			// to their values. When their values change, their summaries are
-			// updated to reflect the new value, per the Android Design
-			// guidelines.
-			bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"));
-		}
-	}
-
-	/**
-	 * This fragment shows data and sync preferences only. It is used when the
-	 * activity is showing a two-pane settings UI.
-	 */
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	public static class DataSyncPreferenceFragment extends PreferenceFragment {
-		@Override
-		public void onCreate(Bundle savedInstanceState) {
-			super.onCreate(savedInstanceState);
-			addPreferencesFromResource(R.xml.pref_data_sync);
-
-			// Bind the summaries of EditText/List/Dialog/Ringtone preferences
-			// to their values. When their values change, their summaries are
-			// updated to reflect the new value, per the Android Design
-			// guidelines.
-			bindPreferenceSummaryToValue(findPreference("sync_frequency"));
-		}
-	}
 }

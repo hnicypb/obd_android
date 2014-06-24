@@ -120,5 +120,8 @@ public class MainActivity extends FragmentActivity{
       }
     };
     
+    protected void onActivityResult(int arg0, int arg1, android.content.Intent arg2) {
+    	
+    };
 
 }

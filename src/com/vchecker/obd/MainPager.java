@@ -11,6 +11,8 @@ import com.vchecker.obd.R;
 import com.vchecker.obd.MainPager.TabsAdapter;
 import com.vchecker.obd.MainPager.TabsAdapter.DummyTabFactory;
 import com.vchecker.obd.MainPager.TabsAdapter.TabInfo;
+import com.vchecker.obd.Bluetooth.BluetoothService;
+import com.vchecker.obd.Bluetooth.DeviceListActivity;
 import com.vchecker.obd.communication.ObdDemoData;
 import com.vchecker.obd.communication.entity.DataStreamItem;
 import com.vchecker.obd.main.*;
@@ -24,7 +26,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.view.ViewPager;
 import android.text.format.Time;
+import android.app.Activity;
 import android.app.FragmentManager;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -32,6 +37,7 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -40,6 +46,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
@@ -54,12 +61,30 @@ import android.provider.ContactsContract.Contacts.Data;
 
 public class MainPager extends FragmentActivity {
 
+    private static final String TAG = "OBD";
+    private static final boolean D = true;
+
+    // 操作请求
+    public static final int REQUEST_CONNECT_DEVICE = 1;		//连接设备
+    public static final int REQUEST_ENABLE_BT = 2;			//启用蓝牙
+    public static final int SETTING_RETURN = 3;			//系统设置
+    
+    // Name of the connected device
+    private String mConnectedDeviceName = null;
+    // String buffer for outgoing messages
+    private StringBuffer mOutStringBuffer;
+    // Local Bluetooth adapter
+    private BluetoothAdapter mBluetoothAdapter = null;
+    // Member object for the chat services
+    private BluetoothService mBluetoothService = null;
+    public static final String TOAST = "toast";
+
 	private FragmentTabHost mTabHost;
 	private RadioGroup mTabRg;
 	private ViewPager mViewPage;
 	TabsAdapter mTabsAdapter;
 	private final Class[] fragments = { FragmentPage_idle.class, FragmentPage_tour.class,
-			FragmentPage_race.class, FragmentPage_detail.class,FragmentPage_setup.class };
+			FragmentPage_race.class, FragmentPage_detail.class,SettingsActivity.class };
 	
 	public static enum PageEnum {
         IdlePage, TourPage, RacePage, DetailPage, SetupPage;
@@ -68,6 +93,7 @@ public class MainPager extends FragmentActivity {
 	static Context mThis;	
 	
 	static long mlLastChangeTabTime=0;
+	static int mCurrTabIndex = 0;
 	static int miTourOrRace = 1;
 	
 	static float mfWaterTempAlarmValue = 100;		
@@ -97,6 +123,7 @@ public class MainPager extends FragmentActivity {
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
+        
         // 定时刷新界面数据
         handlerUpdate.removeCallbacks(runnable);
         handlerUpdate.postDelayed(runnable,1000); 
@@ -123,8 +150,8 @@ public class MainPager extends FragmentActivity {
         // TODO Auto-generated method stub  
         super.onOptionsItemSelected(item);  
        // Intent intent = new Intent(this, PreferenceSetup.class);  
-        Intent intent = new Intent(this, SettingsActivity.class);  
-        startActivity(intent);  
+//        Intent intent = new Intent(this, SettingsActivity.class);  
+//        startActivity(intent);  
         
 		return false;
 		
@@ -139,6 +166,16 @@ public class MainPager extends FragmentActivity {
         		WindowManager.LayoutParams.FLAG_FULLSCREEN);//设置全屏
         
 		setContentView(R.layout.activity_main_pager);
+
+        // Get local Bluetooth adapter
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        // If the adapter is null, then Bluetooth is not supported
+        if (mBluetoothAdapter == null) {
+            Toast.makeText(this, "蓝牙无效", Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
 		
 		mThis = this;
 		// 初始化界面
@@ -155,8 +192,116 @@ public class MainPager extends FragmentActivity {
         //load方法加载指定音频文件，并返回所加载的音频ID。此处使用HashMap来管理这些音频流
         soundMap.put(1 , mSoundPool.load(this, R.raw.coolant , 1));
         soundMap.put(2 , mSoundPool.load(this, R.raw.speed , 1));
-        soundMap.put(3 , mSoundPool.load(this, R.raw.trouble , 1));
+        soundMap.put(3 , mSoundPool.load(this, R.raw.trouble , 1));             
+        
+        // Initialize the BluetoothChatService to perform bluetooth connections
+        mBluetoothService = new BluetoothService(this, mHandler);
+        // Initialize the buffer for outgoing messages
+        mOutStringBuffer = new StringBuffer("");
+        
+        
 	}
+	
+    public static String bytesToHexString(byte[] bytes,int len) {
+        String result = "";
+        if(len>bytes.length)
+        	len = bytes.length;
+        for (int i = 0; i < len; i++) {
+            String hexString = Integer.toHexString(bytes[i] & 0xFF);
+            if (hexString.length() == 1) {
+                hexString = '0' + hexString;
+            }
+            result += hexString.toUpperCase();
+        }
+        return result;
+    }
+
+	 private final Handler mHandler = new Handler() {
+	        @Override
+	        public void handleMessage(Message msg) {
+	            switch (msg.what) {
+	            case BluetoothService.MESSAGE_STATE_CHANGE:
+	                if(D) Log.i(TAG, "MESSAGE_STATE_CHANGE: " + msg.arg1);
+	                switch (msg.arg1) {
+	                case BluetoothService.STATE_CONNECTED:
+//	                    mTitle.setText(R.string.title_connected_to);
+//	                    mTitle.append(mConnectedDeviceName);
+//	                    mConversationArrayAdapter.clear();
+	                    break;
+	                case BluetoothService.STATE_CONNECTING:
+//	                    mTitle.setText(R.string.title_connecting);
+	                    break;
+	                case BluetoothService.STATE_LISTEN:
+	                case BluetoothService.STATE_NONE:
+//	                    mTitle.setText(R.string.title_not_connected);
+	                    break;
+	                }
+	                break;
+	            case BluetoothService.MESSAGE_WRITE:
+	                byte[] writeBuf = (byte[]) msg.obj;
+	                // construct a string from the buffer
+	                String writeMessage = new String(writeBuf);
+//	                mConversationArrayAdapter.add("Me:  " + writeMessage);
+	                break;
+	            case BluetoothService.MESSAGE_READ:
+	                byte[] readBuf = (byte[]) msg.obj;
+	                String readMessage;
+////	              readMessage = new String(readBuf, 0, msg.arg1);
+	                readMessage = bytesToHexString(readBuf,msg.arg1);
+	                if(D) Log.i(TAG, readMessage);
+//	                Log.i("MESSAGE_READ", readMessage);
+//	                // construct a string from the valid bytes in the buffer
+//	                if(mConversationArrayAdapter.getCount()>300)
+//	                	mConversationArrayAdapter.clear();
+//	                mConversationArrayAdapter.add(mConnectedDeviceName+":  " + readMessage);
+	                break;
+	            case BluetoothService.MESSAGE_DEVICE_NAME:
+	                // save the connected device's name
+//	                mConnectedDeviceName = msg.getData().getString(DEVICE_NAME);
+//	                Toast.makeText(getApplicationContext(), "Connected to "
+//	                               + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
+	                break;
+	            case BluetoothService.MESSAGE_TOAST:
+	                Toast.makeText(getApplicationContext(), msg.getData().getString(TOAST),
+	                               Toast.LENGTH_SHORT).show();
+	                break;
+	            }
+	        }
+	    };
+	    
+	
+	    
+	    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	        if(D) Log.d(TAG, "onActivityResult requestCode=" + requestCode + " resultCode=" + resultCode);
+	        switch (requestCode) {
+	        case SETTING_RETURN:		
+	        	break;
+	        case REQUEST_CONNECT_DEVICE:
+	            // When DeviceListActivity returns with a device to connect
+	            if (resultCode == Activity.RESULT_OK) {
+	                // Get the device MAC address
+	                String address = data.getExtras()
+	                                     .getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
+	                // Get the BLuetoothDevice object
+	                BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
+	                // Attempt to connect to the device
+	                mBluetoothService.connect(device);
+	            }
+	            break;
+	        case REQUEST_ENABLE_BT:
+	            // When the request to enable Bluetooth returns
+	            if (resultCode == Activity.RESULT_OK) {
+	                // Bluetooth is now enabled, so set up a chat session
+//	                setupChat();
+	            } else {
+	                // User did not enable Bluetooth or an error occured
+	                Log.d(TAG, "蓝牙未启用");
+	                Toast.makeText(this, R.string.bt_not_enabled_leaving, Toast.LENGTH_SHORT).show();
+	                finish();
+	            }
+	        }
+	    }
+
 
 	/**
 	 * 初始化演示数据
@@ -369,29 +514,30 @@ public class MainPager extends FragmentActivity {
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 						
-				mlLastChangeTabTime = System.currentTimeMillis();
-				int iCurrentTab = mTabHost.getCurrentTab();
+				mlLastChangeTabTime = System.currentTimeMillis();				
 				switch (checkedId) {
 				case R.id.tab_rb_1:
 					mTabHost.setCurrentTab(0);
+					mCurrTabIndex = 0;
 					break;
 				case R.id.tab_rb_2:
 					mTabHost.setCurrentTab(1);
+					mCurrTabIndex = 1;
 					miTourOrRace = 1;
 					break;
 				case R.id.tab_rb_3:
 					mTabHost.setCurrentTab(2);
+					mCurrTabIndex = 2;
 					miTourOrRace = 2;
 					break;
 				case R.id.tab_rb_4:
 					mTabHost.setCurrentTab(3);
+					mCurrTabIndex = 3;
 					break;
-				case R.id.tab_rb_5:{
-			        Intent intent = new Intent(mThis, PreferenceSetup.class);  
-			        startActivity(intent);  
-					mTabHost.setCurrentTab(iCurrentTab);
-				}
-				break;
+				case R.id.tab_rb_5:
+			        Intent intent = new Intent(mThis, SettingsActivity.class);  
+			        startActivityForResult(intent,SETTING_RETURN);  
+			        break;
 				default:
 					break;
 				}
@@ -490,10 +636,8 @@ public class MainPager extends FragmentActivity {
 		@Override
 		public void onTabChanged(String tabId) {
 			int position = mTabHost.getCurrentTab();
-			if(4!=position){
-				mViewPager.setCurrentItem(position);
-				((RadioButton) mTabRg.getChildAt(position)).setChecked(true);
-			}
+			mViewPager.setCurrentItem(position);
+			((RadioButton) mTabRg.getChildAt(position)).setChecked(true);
 		}
 
 		@Override
@@ -508,23 +652,18 @@ public class MainPager extends FragmentActivity {
 			// The jerk.
 			// This hack tries to prevent this from pulling focus out of our
 			// ViewPager.
-			if(4==position){
-		        Intent intent = new Intent(mThis, PreferenceSetup.class);  
-				mContext.startActivity(intent);
-				mTabHost.setCurrentTab(3);
-			}
-			else{
-				TabWidget widget = mTabHost.getTabWidget();
-				int oldFocusability = widget.getDescendantFocusability();
-				widget.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
-				mlLastChangeTabTime = System.currentTimeMillis();
-				mTabHost.setCurrentTab(position);
-				
-				if(position == 1 || position ==2)
-					miTourOrRace = position;
+
+			TabWidget widget = mTabHost.getTabWidget();
+			int oldFocusability = widget.getDescendantFocusability();
+			widget.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
+			mlLastChangeTabTime = System.currentTimeMillis();
+			mTabHost.setCurrentTab(position);
 			
-				widget.setDescendantFocusability(oldFocusability);
-			}
+			if(position == 1 || position ==2)
+				miTourOrRace = position;
+		
+			widget.setDescendantFocusability(oldFocusability);
+			
 		}
 
 		@Override

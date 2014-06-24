@@ -7,102 +7,29 @@
     <string name="title_activity_main_pager">智能行车电脑</string>
     <string name="version">V1.0</string>
 
-    <string-array name="Week">
-        <item>星期天</item>
-        <item>星期一</item>
-        <item>星期二</item>
-        <item>星期三</item>
-        <item>星期四</item>
-        <item>星期五</item>
-        <item>星期六</item>
-    </string-array>
-    <string-array name="WaterTempAlarmTitle">
-        <item>80(℃)</item>
-        <item>90(℃)</item>
-        <item>100(℃)</item>
-        <item>110(℃)</item>
-        <item>120(℃)</item>
-    </string-array>
-    <string-array name="WaterTempAlarmValue">
-        <item>80</item>
-        <item>90</item>
-        <item>100</item>
-        <item>110</item>
-        <item>120</item>
-    </string-array>
-    <string-array name="OverSPeedAlarmTitle">
-        <item>40(Km/h)</item>
-        <item>50(Km/h)</item>
-        <item>60(Km/h)</item>
-        <item>70(Km/h)</item>
-        <item>80(Km/h)</item>
-        <item>90(Km/h)</item>
-        <item>100(Km/h)</item>
-        <item>110(Km/h)</item>
-        <item>120(Km/h)</item>
-        <item>130(Km/h)</item>
-        <item>140(Km/h)</item>
-        <item>150(Km/h)</item>
-        <item>160(Km/h)</item>
-        <item>170(Km/h)</item>
-        <item>180(Km/h)</item>
-        <item>190(Km/h)</item>
-        <item>200(Km/h)</item>
-    </string-array>
-    <string-array name="OverSPeedAlarmValue">
-        <item>40</item>
-        <item>50</item>
-        <item>60</item>
-        <item>70</item>
-        <item>80</item>
-        <item>90</item>
-        <item>100</item>
-        <item>110</item>
-        <item>120</item>
-        <item>130</item>
-        <item>140</item>
-        <item>150</item>
-        <item>160</item>
-        <item>170</item>
-        <item>180</item>
-        <item>190</item>
-        <item>200</item>
-    </string-array>
-    <string-array name="FaitugeDrvingAlarmTitle">
-        <item>60(分钟)</item>
-        <item>90(分钟)</item>
-        <item>120(分钟)</item>
-        <item>150(分钟)</item>
-        <item>180(分钟)</item>
-    </string-array>
-    <string-array name="FaitugeDrvingAlarmValue">
-        <item>60</item>
-        <item>90</item>
-        <item>120</item>
-        <item>150</item>
-        <item>180</item>
-    </string-array>
-    <string-array name="VoltAlarmTitle">
-        <item>12.5(V)</item>
-        <item>13.0(V)</item>
-        <item>13.5(V)</item>
-        <item>14.0(V)</item>
-        <item>14.5(V)</item>
-        <item>15.0(V)</item>
-        <item>15.5(V)</item>
-        <item>16.0(V)</item>
-    </string-array>
-    <string-array name="VoltAlarmValue">
-        <item>12.5</item>
-        <item>13.0</item>
-        <item>13.5</item>
-        <item>14.0</item>
-        <item>14.5</item>
-        <item>15.0</item>
-        <item>15.5</item>
-        <item>16.0</item>
-    </string-array>
-
+    <string name="title_activity_settings">系统设置</string>
     <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_device_list">蓝牙设置</string>
+    
+     <!--  BluetoothChat -->
+    <string name="send">Send</string>
+    <string name="not_connected">You are not connected to a device</string>
+    <string name="bt_not_enabled_leaving">Bluetooth was not enabled. Leaving Bluetooth Chat.</string>
+    <string name="title_connecting">连接中...</string>
+    <string name="title_connected_to">已连接: </string>
+    <string name="title_not_connected">未连接</string>
+
+    <!--  DeviceListActivity -->
+    <string name="scanning">正在扫描设备...</string>
+    <string name="select_device">选择一个蓝牙设备</string>
+    <string name="none_paired">没有已配对设置</string>
+    <string name="none_found">未发现设备</string>
+    <string name="title_paired_devices">已配对设备</string>
+    <string name="title_other_devices">其它有效设备</string>
+    <string name="button_scan">扫描设备</string>
+
+    <!-- Options Menu -->
+    <string name="connect">Connect a device</string>
+    <string name="discoverable">Make discoverable</string>
 
 </resources>
